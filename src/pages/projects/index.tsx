@@ -1,4 +1,5 @@
 
+import Topbar from "@/components/global/topbar";
 
 
 export default function Home() {
@@ -6,8 +7,16 @@ export default function Home() {
 
 
     return (
-        <div>
-            <h1> Projects </h1>
+        <>
+        <div className="flex">
+            <Topbar />
         </div>
+
+        
+        <div className="flex h-screen bg-jet">
+
+        </div>
+
+        </>
     );
 }
