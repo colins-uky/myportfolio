@@ -1,4 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { ChangeEvent, useState, useEffect, useRef } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
+import Automata from "./conway_prefabs.json";
 
 type Cell = {
     row: number;
@@ -6,17 +10,23 @@ type Cell = {
     alive: boolean;
 };
 
-type GridProps = {
-    rows: number;
-    cols: number;
-    reset: boolean;
-    conway: boolean;
-    interval: number;
+interface GridProps {
+    prefab_automaton: string;
 }
 
 
 
-export default function Grid({ rows, cols, reset, conway, interval }:GridProps) {
+
+export default function Grid({ prefab_automaton }: GridProps) {
+
+    const [interval, setInterval] = useState(200);
+    const [conwayCounter, setConwayCounter] = useState(0);
+    const [conway, setConway] = useState(false);
+
+    const [rows, setRows] = useState(25);
+    const [cols, setCols] = useState(25);
+
+
 
 
     // Initialize 1D array of cell objects with row, column, and alive state
@@ -37,6 +47,8 @@ export default function Grid({ rows, cols, reset, conway, interval }:GridProps) 
 
     const isDragging = useRef<boolean>(false);
 
+    
+
 
     const handleMouseDown = (e: React.MouseEvent, row: number, col: number) => {
         e.preventDefault();
@@ -51,8 +63,36 @@ export default function Grid({ rows, cols, reset, conway, interval }:GridProps) 
     }
 
 
+    function handleSliderChange(event: ChangeEvent<HTMLInputElement>) {
+        setCols(Number(event.target.value));
+        setRows(Number(event.target.value));
+    }
 
-    const toggleCell = (row: number, col: number, isLeftClick: boolean) => {
+    function handleIntervalChange(event: ChangeEvent<HTMLInputElement>) {
+        setInterval(Number(event.target.value));
+    }
+
+    function handleClearCells() {
+        resetCells();
+    }
+
+    function handleStartConway() {
+        setConway(!conway);
+    }
+
+
+    function buildAutomaton(automaton: string) {
+        
+    }
+
+    function logAliveCells() {
+        console.log(cells.filter(cell => cell.alive));
+    }
+
+    
+    
+
+    function toggleCell(row: number, col: number, isLeftClick: boolean) {
         if (isDragging.current) {
             setCells((prevCells) =>
                 prevCells.map((cell) =>
@@ -74,7 +114,8 @@ export default function Grid({ rows, cols, reset, conway, interval }:GridProps) 
             }
 
             return initialCells;
-        })
+        });
+        setConwayCounter(0);
     }
 
     // Logic for the rules of John Horton Conways game of life
@@ -84,52 +125,92 @@ export default function Grid({ rows, cols, reset, conway, interval }:GridProps) 
       3.  All other live cells die in the next generation. Similarly, all other dead cells stay dead.
 
     */
-    function Conways_Game_Of_Life() {
-        console.log("CONWAYS GAME OF LIFE!");
+    function Conways_Game_Of_Life(currentCells: Cell[]):Cell[] {
 
-        // Copy cells array
-        let newCells = cells;
+        let newCells = currentCells.map((cell) => {
 
+            const aliveNeighbors = countAliveNeighbors(cell.row, cell.col, currentCells);
 
-        // Get alive cells to test neighbors
-        let aliveCells = cells.filter(cell => cell.alive);
+            let newAliveStatus = cell.alive;
 
-        // Conways Main logic //
+            if (cell.alive) {
+                // 1.  Any live cell with two or three live neighbours survives.
+                newAliveStatus = aliveNeighbors === 2 || aliveNeighbors === 3;
+            }
+            else {
+                // 2.  Any dead cell with three live neighbours becomes a live cell.
+                newAliveStatus = aliveNeighbors === 3;
+            }
 
-        aliveCells.forEach((cell) => {
-            const row = cell.row;
-            const col = cell.col;
+            // 3.  All other live cells die in the next generation. 
+            //     Similarly, all other dead cells stay dead.
+            //     ( If none of the conditions above are satisfied 
+            //     then alive status will not have changed)
 
+            return { ...cell, alive: newAliveStatus };
 
-            // Define the neighbor coordinates
-            const offsets = [
-                [-1, -1], [-1, 0], [-1, 1],
-                [0,  -1],          [0,  1],
-                [1,  -1], [1,  0], [1,  1]
-            ];
-
-            // Iterate over each neighbor
-            offsets.forEach(([rowOffset, colOffset]) => {
-                const newRow = row + rowOffset;
-                const newCol = col + colOffset;
-            });
         });
 
+
+        
+
+        
+
+        return newCells;
     }
 
 
+    function countAliveNeighbors(row: number, col: number, cells: Cell[]): number {
+
+        let aliveNeighbors = 0;
+
+        // Define the neighbor coordinates
+        const offsets = [
+            [-1, -1], [-1, 0], [-1, 1],
+            [0,  -1],          [0,  1],
+            [1,  -1], [1,  0], [1,  1]
+        ];
 
 
+        offsets.forEach(([rowOffset, colOffset]) => {
+            const newRow = row + rowOffset;
+            const newCol = col + colOffset;
+
+            // Check if cell row and column is between 0 and rows and cols
+            if  (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols)  {
+                // (newRow, newCol) should be a valid index, 
+                // so neighbor is the cell at (newRow, newCol).
+                const neighbor = cells.find(cell => cell.row === newRow && cell.col === newCol);
+
+                // Check if neighbor exists and if it is alive
+                if (neighbor && neighbor.alive) {
+                    aliveNeighbors++;
+                }
+            }
+        });
+
+        return aliveNeighbors;
+    }
+
+
+    // Listens for changes in row and column state vars
+    // For Grid size slider
     useEffect(() => {
         resetCells();
-    }, [rows, cols, reset])
+    }, [rows, cols]);
 
+
+    // Listens for changes to conway boolean or interval number
+    // If conway is true, conways game of life is executed periodically at interval milliseconds
     useEffect(() => {
         let timerId: number | undefined;
       
         if (conway) {
             timerId = window.setInterval(() => {
-                Conways_Game_Of_Life();
+                setCells((currentCells) => {
+                    return Conways_Game_Of_Life(currentCells);
+                });
+                setConwayCounter((prevCounter) => prevCounter + 1);
             }, interval);
         } else {
             if (timerId !== undefined) {
@@ -146,7 +227,15 @@ export default function Grid({ rows, cols, reset, conway, interval }:GridProps) 
     }, [conway, interval]);
 
 
+
+    useEffect(() => {
+        console.log("PREFAB CHANGED!");
+        buildAutomaton(prefab_automaton);
+    }, [prefab_automaton])
+
+
     return (
+        <>
         <div
           style={{
             display: 'grid',
@@ -171,7 +260,62 @@ export default function Grid({ rows, cols, reset, conway, interval }:GridProps) 
             ></div>
           ))}
         </div>
-    );
 
-    
+
+
+
+        <div className="flex flex-row items-center justify-between bg-rblack rounded-b-lg pt-5 pb-2 pl-7 pr-7 h-15 w-full">
+
+            <div className="flex flex-col text-yellow">
+                <Form.Label className="mb-2 -mt-2 font-bold text-lg">
+                    Grid Size: {cols}
+                </Form.Label>
+                <Form.Range
+                    min={10}
+                    max={45}
+                    value={cols}
+                    onChange={handleSliderChange}
+                />
+            </div>
+
+
+
+            <div className="flex flex-col text-yellow">
+                <Form.Label className="mb-2 -mt-2 font-bold text-lg">
+                    Interval (ms): {interval}
+                </Form.Label>
+                <Form.Range
+                    min={100}
+                    max={2000}
+                    value={interval}
+                    onChange={handleIntervalChange}
+                />
+            </div>
+
+            <div className="flex flex-col text-yellow">
+                <Form.Label className="mb-2 -mt-2 font-bold text-lg">
+                    Count: {conwayCounter}
+                </Form.Label>
+            </div>
+
+
+            <Button 
+                className="bg-jet w-32 h-12 rounded-2xl text-yellow text-xl font-bold hover:shadow-md hover:shadow-yellow transition hover:scale-110"
+                onClick={handleClearCells}
+
+            >
+                Clear 
+            </Button>
+
+
+
+            <Button
+                className="bg-jet w-32 h-12 rounded-2xl text-yellow text-xl font-bold hover:shadow-md hover:shadow-yellow transition hover:scale-110"
+                onClick={handleStartConway}
+            >
+                Start/Stop
+            </Button>
+        </div>
+        </>
+    );            
 }
