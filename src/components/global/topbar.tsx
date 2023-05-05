@@ -24,8 +24,12 @@ export default function Topbar() {
                             <div className="flex flex-col items-center space-y-2">
             
                                 
-                                <Link href="/projects/conways">
+                                <Link href="/projects/conways" className="hover:text-cambridge hover:underline decoration-2 underline-offset-4">
                                     Conways Game of Life
+                                </Link>
+
+                                <Link href="/projects/sorting" className="hover:text-cambridge hover:underline decoration-2 underline-offset-4">
+                                    Sorting
                                 </Link>
                                 
                                 

@@ -116,6 +116,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
             return initialCells;
         });
         setConwayCounter(0);
+        setConway(false);
     }
 
     // Logic for the rules of John Horton Conways game of life
