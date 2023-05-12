@@ -294,7 +294,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
             </div>
 
             <div className="flex flex-col text-yellow">
-                <Form.Label className="mb-2 -mt-2 font-bold text-lg">
+                <Form.Label className="font-bold text-lg">
                     Count: {conwayCounter}
                 </Form.Label>
             </div>
