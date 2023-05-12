@@ -19,7 +19,7 @@ interface GridProps {
 
 export default function Grid({ prefab_automaton }: GridProps) {
 
-    const [interval, setInterval] = useState(200);
+    const [interval, setInterval] = useState(150);
     const [conwayCounter, setConwayCounter] = useState(0);
     const [conway, setConway] = useState(false);
 
@@ -152,11 +152,6 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
         });
 
-
-        
-
-        
-
         return newCells;
     }
 
@@ -202,7 +197,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
 
     // Listens for changes to conway boolean or interval number
-    // If conway is true, conways game of life is executed periodically at interval milliseconds
+    // If conway is true, conways game of life is executed periodically every interval milliseconds
     useEffect(() => {
         let timerId: number | undefined;
       
@@ -254,7 +249,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
               onMouseUp={handleMouseUp}
               onMouseEnter={(e) => toggleCell(cell.row, cell.col, isDragging.current && e.buttons === 1)}
               onContextMenu={(e) => e.preventDefault()}
-              style={{
+              style={{               //        yellow   :    jet
                 backgroundColor: cell.alive ? '#FFB100' : '#343434',
                 cursor: 'pointer',
               }}
@@ -267,7 +262,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
         <div className="flex flex-row items-center justify-between bg-rblack rounded-b-lg pt-5 pb-2 pl-7 pr-7 h-15 w-full">
 
-            <div className="flex flex-col text-yellow">
+            <div className="flex flex-col text-yellow conway">
                 <Form.Label className="mb-2 -mt-2 font-bold text-lg">
                     Grid Size: {cols}
                 </Form.Label>
@@ -281,7 +276,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
 
 
-            <div className="flex flex-col text-yellow">
+            <div className="flex flex-col text-yellow conway">
                 <Form.Label className="mb-2 -mt-2 font-bold text-lg">
                     Interval (ms): {interval}
                 </Form.Label>
