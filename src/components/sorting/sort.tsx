@@ -22,6 +22,25 @@ export default function Sort() {
 
 
 
+
+    function InsertionSort() {
+        let i = 1;
+
+        while (i < array.length) {
+            let x = array[i];
+            let j = i - 1;
+
+            while (j >= 0 && array[j] > x) {
+                array[j + 1] = array[j];
+                j--;
+            }
+
+            array[j + 1] = x
+            i++
+        }
+
+    }
+
     function randomArray(n: number): number[] {
         // Creates new array from iterable object of length n,
         // Fills the array with its index + 1
@@ -44,11 +63,13 @@ export default function Sort() {
     }
 
     function handleStartSort() {
-
+        console.log('bruh');
+        setStartSort(!startSort);
     }
 
     function handleResetSort() {
         setArray(randomArray(NUM_ITEMS));
+        setStartSort(false);
     }
 
     function handleChangeAlg(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -62,7 +83,32 @@ export default function Sort() {
 
     useEffect(() => {
         console.log(algorithm);
-    }, [algorithm])
+        console.log(startSort);
+    }, [algorithm, startSort])
+
+
+
+    useEffect(() => {
+        let timerId: number | undefined;
+      
+        if (startSort) {
+            timerId = window.setInterval(() => {
+                InsertionSort();
+
+            }, interval);
+        } else {
+            if (timerId !== undefined) {
+                window.clearInterval(timerId);
+            }
+        }
+      
+        // Clean up the effect when the component is unmounted or the props change
+        return () => {
+            if (timerId !== undefined) {
+                window.clearInterval(timerId);
+            }
+        };
+    }, [startSort, interval]);
 
     return (
         <div className="flex flex-col h-full w-full">
