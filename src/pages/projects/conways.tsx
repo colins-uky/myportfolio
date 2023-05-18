@@ -27,9 +27,9 @@ export default function Conways() {
             <Topbar />
 
 
-            <h1 className="text-yellow text-8xl mt-10 conways text-center [text-shadow:_2px_2px_3px_rgb(255_255_255_/_80%)]"> Conway&apos;s Game of Life</h1>
+            <h1 className="text-yellow text-7xl mt-10 conways text-center [text-shadow:_2px_2px_3px_rgb(255_255_255_/_80%)]"> Conway&apos;s Game of Life</h1>
 
-            <div className="flex flex-col bg-rblack h-3/4 max-h-lg w-3/4 max-w-screen-lg mt-10 rounded-3xl p-5 shadow-lg shadow-rblack"
+            <div className="flex flex-col bg-rblack h-3/4 max-h-3xl w-3/4 max-w-3xl mt-10 rounded-3xl p-5 shadow-lg shadow-rblack"
                 onContextMenu={(e) => e.preventDefault()}
             >
                 <Grid 

@@ -5,15 +5,24 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 
 
-const NUM_ITEMS = 20;
+const NUM_ITEMS = 25;
 
 
 export default function Sort() {
 
+    const [barCount, setBarCount] = useState(25);
     const [array, setArray] = useState(randomArray(NUM_ITEMS));
     const maxInt = Math.max(...array);
-    const [interval, setInterval] = useState(150);
+    const [interval, setInterval] = useState(20);
+
+
     const [startSort, setStartSort] = useState(false);
+    const [startScan, setStartScan] = useState(false);
+
+    const [isSorted, setIsSorted] = useState(false);
+
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+    
 
     const [comparisonCounter, setComparisonCounter] = useState(0);
 
@@ -22,24 +31,31 @@ export default function Sort() {
 
 
 
-
-    function InsertionSort() {
+    // Define generator function to store the previous state
+    function* insertionSort(arr: number[]) {
         let i = 1;
 
-        while (i < array.length) {
-            let x = array[i];
+        while (i < arr.length) {
+            let x = arr[i];
             let j = i - 1;
 
-            while (j >= 0 && array[j] > x) {
-                array[j + 1] = array[j];
+            while (j >= 0 && arr[j] > x) {
+                arr[j + 1] = arr[j];
                 j--;
+
+                yield {array: [...arr], index: j+1, comparison: true};
             }
 
-            array[j + 1] = x
-            i++
+            arr[j + 1] = x;
+            i++;
+            yield {array: [...arr], index: null, comparison: false};
         }
 
+        yield {array: [...arr], index: null, comparison: false};
     }
+
+
+    
 
     function randomArray(n: number): number[] {
         // Creates new array from iterable object of length n,
@@ -62,23 +78,61 @@ export default function Sort() {
         return arr;
     }
 
+    function descendingArray(n: number): number[] {
+        let arr = [];
+
+        for (let i = n; i > 0; i--) {
+            arr.push(i);
+        }
+
+        return arr;
+    }
+
     function handleStartSort() {
-        console.log('bruh');
         setStartSort(!startSort);
     }
 
+    function handleWorstCase() {
+        let descendingArr = descendingArray(barCount);
+
+        handleResetSort();
+
+        setArray(descendingArr);
+        setSortGen(insertionSort(descendingArr));
+    }
+
     function handleResetSort() {
-        setArray(randomArray(NUM_ITEMS));
+        let arr = randomArray(barCount);
+        setArray(arr);
+        setSortGen(insertionSort(arr));
         setStartSort(false);
+        setActiveIndex(null);
+        setScanGen(scanArray(barCount));
+        setIsSorted(false);
+        setComparisonCounter(0);
     }
 
     function handleChangeAlg(event: React.ChangeEvent<HTMLSelectElement>) {
         setAlgorithm(event.target.value);
-        setArray(randomArray(NUM_ITEMS));
+        setArray(randomArray(barCount));
+
+        handleResetSort();
+        // setSortGen(merge sort...);
     }
 
     function handleIntervalChange(event: ChangeEvent<HTMLInputElement>) {
         setInterval(Number(event.target.value));
+    }
+
+    function handleBarCountChange(event: ChangeEvent<HTMLInputElement>) {
+        setBarCount(Number(event.target.value));
+        handleResetSort();
+    }
+
+    function* scanArray(n: number) {
+        for (let i = 0; i < n; i++) {
+            yield i;
+        }
     }
 
     useEffect(() => {
@@ -88,12 +142,36 @@ export default function Sort() {
 
 
 
+
+    // Define sort/scan generator functions
+
+    const [scanGen, setScanGen] = useState(scanArray(barCount));
+
+    const [sortGen, setSortGen] = useState(insertionSort(array));
+
+    // Main useEffect for sorting the array, 
+    // to change algorithms, change the sortGen useState variable.
     useEffect(() => {
         let timerId: number | undefined;
       
         if (startSort) {
             timerId = window.setInterval(() => {
-                InsertionSort();
+
+                const result = sortGen.next();
+                if (!result.done) {
+                    console.log(result);
+                    setArray(result.value.array);
+                    setActiveIndex(result.value.index);
+
+                    if (result.value.comparison) {
+                        // function form of set State to use the most recent state
+                        setComparisonCounter(prevCounter => prevCounter + 1);
+                    }
+                }
+                else {           
+                    setStartScan(true);         
+                    window.clearInterval(timerId);
+                }
 
             }, interval);
         } else {
@@ -110,6 +188,37 @@ export default function Sort() {
         };
     }, [startSort, interval]);
 
+
+    // Scanner 
+
+    useEffect(() => {
+        let timerId: number | undefined;
+        
+        if (startScan) {
+            timerId = window.setInterval(() => {
+                const result = scanGen.next();
+                if (!result.done) {
+                    setActiveIndex(result.value);
+                } else {
+                    window.clearInterval(timerId);
+                    setActiveIndex(null);
+                    setStartScan(false);
+                    setIsSorted(true);
+                }
+            }, interval);
+        } else {
+            if (timerId !== undefined) {
+                window.clearInterval(timerId);
+            }
+        }
+    
+        return () => {
+            if (timerId !== undefined) {
+                window.clearInterval(timerId);
+            }
+        };
+    }, [startScan, interval]);
+
     return (
         <div className="flex flex-col h-full w-full">
         
@@ -119,10 +228,11 @@ export default function Sort() {
                 {array.map((value, index) => (
                     <div
                         key={index}
-                        className="bg-bright grow"
+                        className="grow"
                         style={{
                             height: `${(value / maxInt) * 100}%`,
-                            borderRight: index < array.length - 1 ? '1px solid #000' : 'none',
+                            borderRight: index < array.length - 1 ? '1px solid #343434' : 'none',
+                            backgroundColor: isSorted ? '#62929E' : (index === activeIndex ? '#62929E' : '#FBFFFE'),
                         }}
                     />
                 ))}
@@ -136,7 +246,7 @@ export default function Sort() {
 
 
 
-                <Form.Select className="bg-jet w-44 h-12 rounded-2xl text-center text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                <Form.Select className="bg-jet w-44 h-full rounded-2xl text-center text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                              onChange={handleChangeAlg}
                 >
                     <option value="Merge">Merge Sort</option>
@@ -146,7 +256,35 @@ export default function Sort() {
                     <option value="Bogo">Bogo Sort</option>
                 </Form.Select>
 
+                
 
+                <div className="flex flex-col text-munsell sort">
+                    <Form.Label className="mb-2 -mt-2 font-bold text-md">
+                        Bars : {barCount}
+                    </Form.Label>
+                    <Form.Range
+                        className="slider"
+                        min={10}
+                        max={100}
+                        value={barCount}
+                        onChange={handleBarCountChange}
+                    />
+                </div>
+
+
+                <div className="flex flex-col text-munsell sort">
+                    <Form.Label className="mb-2 -mt-2 font-bold text-md">
+                        Interval (ms): {interval}
+                    </Form.Label>
+                    <Form.Range
+                        className="slider"
+                        min={10}
+                        max={500}
+                        step={10}
+                        value={interval}
+                        onChange={handleIntervalChange}
+                    />
+                </div>
 
 
                 <div className="flex flex-col text-munsell">
@@ -156,22 +294,17 @@ export default function Sort() {
                 </div>
 
 
-                <div className="flex flex-col text-munsell sort">
-                    <Form.Label className="mb-2 -mt-2 font-bold text-lg">
-                        Interval (ms): {interval}
-                    </Form.Label>
-                    <Form.Range
-                        className="slider"
-                        min={100}
-                        max={2000}
-                        value={interval}
-                        onChange={handleIntervalChange}
-                    />
-                </div>
+                <Button 
+                    className="bg-jet w-28 h-full rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    onClick={handleWorstCase}
+
+                >
+                    Worst Case 
+                </Button>
 
 
                 <Button 
-                    className="bg-jet w-32 h-12 rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    className="bg-jet w-28 h-full rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                     onClick={handleResetSort}
 
                 >
@@ -181,7 +314,7 @@ export default function Sort() {
 
 
                 <Button
-                    className="bg-jet w-32 h-12 rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    className="bg-jet w-32 h-full rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                     onClick={handleStartSort}
                 >
                     Start/Stop
