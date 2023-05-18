@@ -55,6 +55,11 @@ export default function Sort() {
     }
 
 
+    function* mergeSort(arr: number[]) {
+        
+    }
+
+
     
 
     function randomArray(n: number): number[] {
@@ -114,7 +119,10 @@ export default function Sort() {
 
     function handleChangeAlg(event: React.ChangeEvent<HTMLSelectElement>) {
         setAlgorithm(event.target.value);
-        setArray(randomArray(barCount));
+        let arr = randomArray(barCount)
+        setArray(arr);
+
+        setSortGen(mergeSort(arr));
 
         handleResetSort();
         // setSortGen(merge sort...);
