@@ -18,7 +18,7 @@ export default function Home() {
         </div>
 
         
-        <div className="flex h-screen bg-jet">
+        <div className="flex h-screen bg-rblack">
 
         </div>
 
