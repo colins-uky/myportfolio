@@ -6,7 +6,7 @@ export default function Topbar() {
 
     return (
 
-        <nav className="bg-rblack w-screen font-Lato font-bold text-lg">
+        <nav className="bg-rblack w-full font-Lato font-bold text-lg sticky top-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-around h-16 text-bright">
                     <Link href="/" className="hover:text-cambridge hover:underline decoration-2 underline-offset-4">
