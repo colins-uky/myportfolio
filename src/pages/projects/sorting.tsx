@@ -7,7 +7,7 @@ import Topbar from "@/components/global/topbar";
 
 export default function Sorting() {
 
-
+    const [algorithm, setAlgorithm] = useState('Merge');
 
 
     return (
@@ -30,7 +30,9 @@ export default function Sorting() {
 
             <div className="flex w-3/4 max-w-4xl h-3/4 max-h-lg bg-rblack rounded-3xl mt-8 shadow-lg shadow-rblack p-5 pb-1">
 
-                <Sort />
+                <Sort 
+                    
+                />
 
             </div>
 
