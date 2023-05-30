@@ -19,7 +19,6 @@ module.exports = {
       'munsell': '#62929E',
       'cambridge': '#6BAB90',
       'rblack': '#222222',
-      'dblack': '#111',
       'red': '#FF0000',
       'green': '#00FF00',
       'blue': '#0000FF',

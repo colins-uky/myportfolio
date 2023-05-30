@@ -13,12 +13,12 @@ export default function Home() {
 
     return (
         <>
-        
-        <Topbar />
-        
+        <div className="flex">
+            <Topbar />
+        </div>
 
         
-        <div className="flex h-screen bg-dblack">
+        <div className="flex h-screen bg-jet">
 
         </div>
 
