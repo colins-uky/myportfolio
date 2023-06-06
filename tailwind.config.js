@@ -23,7 +23,13 @@ module.exports = {
       'green': '#00FF00',
       'blue': '#0000FF',
       'white': '#DFDFDF',
-      'black': '#1a1a1a'
+      'black': '#1a1a1a',
+      'grey' : '#bcbcbc',
+      'lgrey' : '#dddddd',
+      'dgrey' : '#787c7e',
+      'wordle-green' : '#6aaa64',
+      'wordle-yellow' : '#c9b458'
+
     },
   },
   plugins: [],

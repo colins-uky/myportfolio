@@ -5,6 +5,9 @@ import Board from "@/components/wordle/board";
 
 import WordleList from "@/components/wordle/wordle.json"
 
+import Button from "react-bootstrap/Button";
+
+
 
 
 const wordleListLength = 2314;
@@ -16,13 +19,19 @@ function getRandomWordle() {
 
 
 interface WordleProps {
-    wordle: string;
+    initialWordle: string;
 }
 
-export default function Wordle({ wordle }: WordleProps) {
+export default function Wordle({ initialWordle }: WordleProps) {
 
-    
+    const [wordle, setWordle] = useState(initialWordle);
 
+
+    if (!wordle) {
+        return (
+            <div> Loading Wordle...</div>
+        )
+    }
 
     return (
         <>
@@ -42,12 +51,23 @@ export default function Wordle({ wordle }: WordleProps) {
                 Wordle: {wordle}
             </h1>
 
-            <div className="flex w-2/5 max-w-4xl h-3/4 max-h-lg bg-rblack rounded-3xl mt-8 shadow-lg shadow-rblack p-5">
+            <div className="flex w-2/5 min-w-[600px] max-w-[800px] h-3/4 max-h-lg bg-rblack rounded-t-3xl mt-8 shadow-lg shadow-rblack px-5 pt-5 pb-3">
 
                 <Board 
                     wordle={wordle}
                 />
 
+            </div>
+
+            <div className="flex flex-row-reverse w-2/5 min-w-[600px] max-w-[800px] h-[5%] max-h-lg bg-rblack rounded-b-3xl mb-10 shadow-lg shadow-rblack pb-3 px-3 justify-between">
+                <Button
+                    className="bg-jet w-32 h-full rounded-2xl text-cambridge text-xl font-bold shadow-md hover:shadow-cambridge transition hover:scale-110"
+                    onClick={() => setWordle(getRandomWordle())}
+                >
+                    Reset Game
+                </Button>
+
+                
             </div>
 
 
@@ -65,6 +85,6 @@ export async function getServerSideProps() {
     const wordle = getRandomWordle();
   
     return {
-        props: { wordle }, // will be passed to the page component as props
+        props: { initialWordle: wordle }, // will be passed to the page component as props
     };
 }
