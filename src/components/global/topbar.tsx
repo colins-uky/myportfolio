@@ -20,8 +20,8 @@ export default function Topbar() {
                             Projects
                         </Link>
 
-                        <div className="absolute left-1/2 transform -translate-x-1/2 pt-8 hidden w-[20vw] h-[15vh] rounded-md bg-rblack text-white group-hover:block">
-                            <div className="flex flex-col items-center space-y-2">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 hidden w-[15vw] h-[15vh] rounded-md bg-rblack text-white group-hover:block">
+                            <div className="flex flex-col items-center space-y-2 pt-5 pb-5">
             
                                 
                                 <Link href="/projects/conways" className="hover:text-cambridge hover:underline decoration-2 underline-offset-4">
@@ -30,6 +30,10 @@ export default function Topbar() {
 
                                 <Link href="/projects/sorting" className="hover:text-cambridge hover:underline decoration-2 underline-offset-4">
                                     Sorting
+                                </Link>
+
+                                <Link href="/projects/wordle" className="hover:text-cambridge hover:underline decoration-2 underline-offset-4">
+                                    Wordle
                                 </Link>
                                 
                                 
