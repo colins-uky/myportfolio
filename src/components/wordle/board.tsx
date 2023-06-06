@@ -4,15 +4,19 @@ interface SquareProps {
     letter: string;
 }
 
+interface BoardProps {
+    wordle: string;
+}
+
 function Square({ letter }: SquareProps) {
     return (
         <div className="flex w-full h-full overflow-hidden bg-jet rounded-lg items-center justify-center">
-            <h1 className="text-6xl font-bold text-white m-0">{letter}</h1>
+            <h1 className="text-5xl font-bold text-white m-0">{letter}</h1>
         </div>
     );
 }
 
-function Board() {
+function Board({ wordle }: BoardProps) {
     const totalSquares = 30;
     const [squares, setSquares] = useState<string[]>(Array(totalSquares).fill(''));
     const [currentSquare, setCurrentSquare] = useState<number>(0);

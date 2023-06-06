@@ -55,7 +55,15 @@ export default function Conways() {
                     
                 </p>
 
-                <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Conway&apos;s Game of Life Wikipedia</a>
+                <p className="text-bright text-lg font-serif indent-10 mt-10">
+                    The Game of Life is a famous example of the <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Halting_problem" target="_blank">Halting Problem</a>, which
+                    states that a general solution that determines if a program will get stuck in a loop forever, or "halt" cannot exist. In this case, an algorithm that can determine if the Game of Life will fizzle out (All cells dead)
+                    or if the Game of Life will reach a stable configuration of cells, is impossible. Alonzo Church and Alan Turing both proved this separately in 1936 and in 1937 respectively. Church used lamba calculus for his proof while 
+                    Turing used his famous hypothetical machines, the <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Turing_machine" target="_blank">Turing Machine</a>.
+                    
+                </p>
+
+                <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Conway&apos;s Game of Life Wiki</a>
             </div>
         </div>
         </>
