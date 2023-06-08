@@ -4,6 +4,7 @@ interface SquareProps {
     letter: string;
     isCurrent: boolean;
     index: number;
+    color: string | null;
 }
 
 interface BoardProps {
@@ -27,13 +28,18 @@ function Board({ wordle }: BoardProps) {
 
     const [blockInput, setBlockInput] = useState(false);
 
-    function Square({ letter, isCurrent, index }: SquareProps) {
+
+    // SQUARE COMPONENT
+    function Square({ letter, isCurrent, index, color }: SquareProps) {
         const row = Math.floor(index / 5) + 1;
         const animation = flipState[index] ? "" : (isCurrent && lastAction === "typing" ? "bounce" : "");
         const animate = flipState[index] ? "" : (row === animateRow ? `flip 0.5s ${index % 5 * 0.4}s forwards` : "");
 
-        const squareColors = flipState[index] ? "bg-wordle-green text-white" : (letter ? "border-4 border-dgrey bg-lgrey" : "border-4 border-grey bg-lgrey");
-        const backColors = "bg-wordle-green text-white";
+        const squareColors = flipState[index] ? `${color} text-white` : (letter ? "border-4 border-dgrey bg-lgrey" : "border-4 border-grey bg-lgrey");
+
+        const backColors = color ? `${color} text-white` : "bg-wordle-green text-white";
+
+    
 
         
         return (
@@ -47,6 +53,7 @@ function Board({ wordle }: BoardProps) {
             </div>
         );
     }
+    // END SQUARE COMPONENT
 
     function handleKeyDown(event: KeyboardEvent): void {
         if(currentSquare < totalSquares) {
@@ -54,6 +61,7 @@ function Board({ wordle }: BoardProps) {
 
 
             if (keyPressed === 'ENTER' && currentSquare === 5 * currentRow) {
+                // Block the input while the animation is playing
                 setBlockInput(true);
                 setCurrentRow(currentRow + 1);
 
@@ -62,7 +70,7 @@ function Board({ wordle }: BoardProps) {
                 
 
 
-                
+                // Send only the correct row to handleSubmitGuess
                 handleSubmitGuess(squares.slice(currentSquare - 5, currentSquare));
                 return;
             }
@@ -118,11 +126,12 @@ function Board({ wordle }: BoardProps) {
         setCurrentRow(1);
         setLastAction(null);
         setAnimateRow(null);
+        setFlipState(Array(totalSquares).fill(false));
       }, [wordle]);
 
     return (
         <div className="grid grid-cols-5 w-full gap-1 gap-y-2" style={{gridTemplateRows: "repeat(6, 1fr)"}}>
-            {squares.map((letter, index) => <Square key={index} letter={letter} isCurrent={index === currentSquare - 1} index={index} />)}
+            {squares.map((letter, index) => <Square key={index} letter={letter} isCurrent={index === currentSquare - 1} index={index} color={'bg-jet'}/>)}
         </div>
     );
 }

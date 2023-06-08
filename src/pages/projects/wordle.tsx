@@ -62,9 +62,13 @@ export default function Wordle({ initialWordle }: WordleProps) {
             <div className="flex flex-row-reverse w-2/5 min-w-[600px] max-w-[800px] h-[5%] max-h-lg bg-rblack rounded-b-3xl mb-10 shadow-lg shadow-rblack pb-3 px-3 justify-between">
                 <Button
                     className="bg-jet w-32 h-full rounded-2xl text-cambridge text-xl font-bold shadow-md hover:shadow-cambridge transition hover:scale-110"
-                    onClick={() => setWordle(getRandomWordle())}
+                    tabIndex={-1}
+                    onClick={(e) => {
+                        setWordle(getRandomWordle());
+                        e.currentTarget.blur();
+                    }}
                 >
-                    Reset Game
+                    New Game
                 </Button>
 
                 
