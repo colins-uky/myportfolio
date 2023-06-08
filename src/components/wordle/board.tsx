@@ -11,21 +11,38 @@ interface BoardProps {
     wordle: string;
 }
 
+// Helper function for calculateGuessColors() function
+function countLetters(str: string) {
+    const counts: { [letter: string]: number } = {};
+    for (let i = 0; i < str.length; i++) {
+        const letter = str[i];
+        if (!counts[letter]) {
+            counts[letter] = 1;
+        } else {
+            counts[letter]++;
+        }
+    }
+    return counts;
+}
 
 
 function Board({ wordle }: BoardProps) {
-    const upperWordle = wordle ? wordle.toUpperCase() : '';
+    let upperWordle = wordle ? wordle.toUpperCase() : '';
     const totalSquares = 30;
-    const [squares, setSquares] = useState<string[]>(Array(totalSquares).fill(''));
-    const [currentSquare, setCurrentSquare] = useState<number>(0);
 
+    // Initialize states for square data
+    const [squares, setSquares] = useState<string[]>(Array(totalSquares).fill(''));
+    const [flipState, setFlipState] = useState<Array<boolean>>(Array(totalSquares).fill(false));
+    const [colors, setColors] = useState<Array<string>>(Array(totalSquares).fill(null));
+
+    // Keep track of current square & row
+    const [currentSquare, setCurrentSquare] = useState<number>(0);
     const [currentRow, setCurrentRow] = useState(1);
+
+    // Track last input for animations
     const [lastAction, setLastAction] = useState<"typing" | "backspacing" | "enter" | null>(null);
 
     const [animateRow, setAnimateRow] = useState<number | null>(null);
-
-    const [flipState, setFlipState] = useState<Array<boolean>>(Array(totalSquares).fill(false));
-
     const [blockInput, setBlockInput] = useState(false);
 
 
@@ -35,9 +52,9 @@ function Board({ wordle }: BoardProps) {
         const animation = flipState[index] ? "" : (isCurrent && lastAction === "typing" ? "bounce" : "");
         const animate = flipState[index] ? "" : (row === animateRow ? `flip 0.5s ${index % 5 * 0.4}s forwards` : "");
 
-        const squareColors = flipState[index] ? `${color} text-white` : (letter ? "border-4 border-dgrey bg-lgrey" : "border-4 border-grey bg-lgrey");
+        const squareColors = flipState[index] ? (color ? `${color} text-white` : 'bg-jet text-white') : (letter ? "border-4 border-dgrey bg-lgrey" : "border-4 border-grey bg-lgrey");
 
-        const backColors = color ? `${color} text-white` : "bg-wordle-green text-white";
+        const backColors = color ? `${color} text-white` : "bg-jet text-white";
 
     
 
@@ -99,6 +116,8 @@ function Board({ wordle }: BoardProps) {
     function handleSubmitGuess(guessArr: string[]) {
         const guess = guessArr.join('');
 
+        calculateGuessColors(guess);
+
         console.log(guess);
         console.log(upperWordle);
 
@@ -108,6 +127,46 @@ function Board({ wordle }: BoardProps) {
             setFlipState(flipState.map((flip, index) => index < currentSquare ? true : flip));
             setBlockInput(false);
         }, 2000);
+    }
+
+    function calculateGuessColors(guess: string) {
+        const guessCounts = countLetters(guess);
+        const wordleCounts = countLetters(upperWordle);
+
+        let newColors = [...colors];
+
+        console.log(guess);
+
+        // Iterate through the characters in guess
+        for (let i = 0; i < guess.length; i++) {
+            let letter = guess[i];
+
+
+            console.log(letter);
+            console.log(upperWordle[i]);
+
+            // If letter is the same in both and in the same position
+            // Background color = green
+            if (letter === upperWordle[i]) {
+                newColors[currentSquare - guess.length + i] = 'bg-wordle-green';
+
+                // Decrease the count for current letter from both as the guess was correct
+                wordleCounts[letter]--;
+                guessCounts[letter]--;
+                
+            }
+            // letter is in the word but in the incorrect position
+            else if (upperWordle.includes(letter)) {
+                if (guessCounts[letter] <= wordleCounts[letter]) {
+                    
+                }
+                
+                newColors[currentSquare - guess.length + i] = 'bg-wordle-yellow';
+            }
+            // If letter isnt in wordle at all, leave null for bg-jet
+        }
+
+        setColors(newColors);
     }
 
 
@@ -121,17 +180,19 @@ function Board({ wordle }: BoardProps) {
 
     useEffect(() => {
         // Resets the game if the wordle changes
+        upperWordle = wordle.toUpperCase();
         setSquares(Array(totalSquares).fill(''));
         setCurrentSquare(0);
         setCurrentRow(1);
         setLastAction(null);
         setAnimateRow(null);
         setFlipState(Array(totalSquares).fill(false));
+        setColors(Array(totalSquares).fill(null));
       }, [wordle]);
 
     return (
         <div className="grid grid-cols-5 w-full gap-1 gap-y-2" style={{gridTemplateRows: "repeat(6, 1fr)"}}>
-            {squares.map((letter, index) => <Square key={index} letter={letter} isCurrent={index === currentSquare - 1} index={index} color={'bg-jet'}/>)}
+            {squares.map((letter, index) => <Square key={index} letter={letter} isCurrent={index === currentSquare - 1} index={index} color={colors[index]}/>)}
         </div>
     );
 }
