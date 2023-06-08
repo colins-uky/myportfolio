@@ -3,14 +3,19 @@ import Head from "next/head";
 import Topbar from "@/components/global/topbar";
 import Board from "@/components/wordle/board";
 
-import WordleList from "@/components/wordle/wordle.json"
+import WordleList from "@/components/wordle/words.json"
 
 import Button from "react-bootstrap/Button";
 
 
 
 
-const wordleListLength = 2314;
+const wordleListLength = WordleList.length;
+
+// Initialize a set of all wordle words for O(1) membership testing
+// Creating a set from an array is O(n), however we will be querying the set 
+// at minimum once during the game, realistically many more times.
+const WordleSet = new Set(WordleList);
 
 function getRandomWordle() {
     // Generates a random integer between 0 and wordleListLength and returns the value at that index
@@ -25,13 +30,16 @@ interface WordleProps {
 export default function Wordle({ initialWordle }: WordleProps) {
 
     const [wordle, setWordle] = useState(initialWordle);
+    const [showWordle, setShowWordle] = useState(false);
 
+    let title = showWordle ? `Wordle: ${wordle}` : 'Wordle'
 
     if (!wordle) {
         return (
             <div> Loading Wordle...</div>
         )
     }
+
 
     return (
         <>
@@ -47,14 +55,16 @@ export default function Wordle({ initialWordle }: WordleProps) {
 
             <Topbar />
 
+            
             <h1 className="text-cambridge sorting  font-bold text-7xl mt-5 text-center [text-shadow:_2px_2px_5px_rgb(107_171_144_/_100%)]">
-                Wordle: {wordle}
+                {title}
             </h1>
 
             <div className="flex w-2/5 min-w-[600px] max-w-[800px] h-3/4 max-h-lg bg-rblack rounded-t-3xl mt-8 shadow-lg shadow-rblack px-5 pt-5 pb-3">
 
                 <Board 
                     wordle={wordle}
+                    wordleSet={WordleSet}
                 />
 
             </div>
@@ -65,22 +75,28 @@ export default function Wordle({ initialWordle }: WordleProps) {
                     tabIndex={-1}
                     onClick={(e) => {
                         setWordle(getRandomWordle());
+                        setShowWordle(false);
                         e.currentTarget.blur();
                     }}
                 >
                     New Game
                 </Button>
 
-                
+                <Button
+                    className="bg-jet w-32 h-full rounded-2xl text-cambridge text-xl font-bold shadow-md hover:shadow-cambridge transition hover:scale-110"
+                    tabIndex={-1}
+                    onClick={(e) => {
+                        setShowWordle(!showWordle);
+                        e.currentTarget.blur();
+                    }}
+                >
+                    Reveal Word
+                </Button>
             </div>
 
 
 
         </div>
-        
-        
-        
-        
         </>
     )
 }
