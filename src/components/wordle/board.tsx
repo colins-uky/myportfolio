@@ -64,10 +64,10 @@ function Board({ wordle, wordleSet }: BoardProps) {
         return (
             <div className={`w-full h-full relative rounded-sm ${animation}`} style={{animation: animate, transformStyle: 'preserve-3d', animationFillMode: 'forwards'}}>
                 <div className={`absolute w-full h-full flex items-center justify-center ${squareColors}`} style={{ backfaceVisibility: 'hidden' }}>
-                    <h1 className="text-[3vw] font-bold m-0">{letter}</h1>
+                    <h1 className="text-[2em] font-bold m-0">{letter}</h1>
                 </div>
                 <div className={`absolute w-full h-full flex items-center justify-center ${backColors}`} style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-                    <h1 className="text-[3vw] font-bold m-0" style={{transform: 'rotateX(180deg) rotateY(180deg)'}}>{letter}</h1>
+                    <h1 className="text-[2em] font-bold m-0" style={{transform: 'rotateX(180deg) rotateY(180deg)'}}>{letter}</h1>
                 </div>
             </div>
         );
