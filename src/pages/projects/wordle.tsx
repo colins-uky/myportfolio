@@ -53,7 +53,9 @@ export default function Wordle({ initialWordle }: WordleProps) {
         <div className="flex flex-col items-center w-screen h-screen bg-jet">
 
 
-            <Topbar />
+            <Topbar 
+                BGcolor="bg-cambridge"
+            />
 
             
             <h1 className="text-cambridge sorting font-bold text-7xl mt-5 text-center [text-shadow:_2px_2px_5px_rgb(107_171_144_/_100%)]">

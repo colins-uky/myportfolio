@@ -22,7 +22,9 @@ export default function Sorting() {
         <div className="flex flex-col items-center w-screen h-screen bg-jet">
 
 
-            <Topbar />
+            <Topbar 
+                BGcolor="bg-munsell"
+            />
 
             <h1 className="text-munsell sorting  font-bold text-7xl mt-5 text-center [text-shadow:_2px_2px_5px_rgb(98_146_158_/_100%)]">
                 Sorting

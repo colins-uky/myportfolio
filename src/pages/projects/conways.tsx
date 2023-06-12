@@ -24,7 +24,9 @@ export default function Conways() {
         
         <div className="flex w-full h-screen bg-jet items-center flex-col">
 
-            <Topbar />
+            <Topbar 
+                BGcolor="bg-yellow"
+            />
 
 
             <h1 className="text-yellow text-7xl mt-10 conways text-center [text-shadow:_2px_2px_3px_rgb(255_255_255_/_80%)]"> Conway&apos;s Game of Life</h1>

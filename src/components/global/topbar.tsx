@@ -7,7 +7,7 @@ import {
   ChartBarIcon,
   PuzzlePieceIcon,
   Squares2X2Icon,
-  SquaresPlusIcon,
+  HomeIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
@@ -16,32 +16,34 @@ import Link from 'next/link'
 
 
 
-
+interface TopbarProps {
+    BGcolor?: string;
+}
 
 const products = [
   { name: 'Conway\'s Game of Life', description: 'Zero-player cellular automata game', href: '/projects/conways', icon: Squares2X2Icon },
   { name: 'Visual Sorting', description: 'See how different sorting algorithms behave', href: '/projects/sorting', icon: ChartBarIcon },
   { name: 'Wordle Clone', description: 'Popular NYT word game by Josh Wardle', href: '/projects/wordle', icon: PuzzlePieceIcon }
 ]
-const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
+
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Topbar() {
+export default function Topbar({ BGcolor }:TopbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+
+  const borderStyle = `${BGcolor} w-full h-1`;
+
   return (
-    <header className="bg-rblack w-full">
+    <header className="bg-rblack w-full sticky top-0 z-50">
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div className="flex lg:flex-1">
                 <Link href="/" className="-m-1.5 p-1.5">
                     <span className="sr-only">Home</span>
-                    <h1 className='text-2xl font-bold text-white hover:text-cambridge'> Home </h1>
+                    <HomeIcon className='h-8 text-bright hover:text-cambridge' />
                 </Link>
             </div>
             <div className="flex lg:hidden">
@@ -90,36 +92,16 @@ export default function Topbar() {
                         </div>
                     ))}
                     </div>
-                    <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-rblack">
-                    {callsToAction.map((item) => (
-                        <a
-                        key={item.name}
-                        href={item.href}
-                        className="group flex items-center justify-center gap-x-2.5 p-3 text-md font-semibold leading-6 text-bright hover:bg-jet hover:text-cambridge"
-                        >
-                        <item.icon className="h-5 w-5 flex-none text-bright group-hover:text-cambridge" aria-hidden="true" />
-                            {item.name}
-                        </a>
-                    ))}
-                    </div>
                 </Popover.Panel>
                 </Transition>
             </Popover>
 
             <a href="#" className="text-md font-semibold leading-6 text-bright hover:text-cambridge">
-                Features
-            </a>
-            <a href="#" className="text-md font-semibold leading-6 text-bright hover:text-cambridge">
-                Marketplace
-            </a>
-            <a href="#" className="text-md font-semibold leading-6 text-bright hover:text-cambridge">
-                Company
+                About
             </a>
             </Popover.Group>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-md font-semibold leading-6 text-bright hover:text-cambridge">
-                Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            
             </div>
         </nav>
 
@@ -131,10 +113,10 @@ export default function Topbar() {
             <div className="fixed inset-0 z-10" />
             <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-rblack px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-                <a href="#" className="-m-1.5 p-1.5">
+                <Link href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Home</span>
-                <h1 className='text-2xl font-bold text-white hover:text-cambridge'> Home </h1>
-                </a>
+                <HomeIcon className='h-8 text-bright hover:text-cambridge' />
+                </Link>
                 <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-bright"
@@ -158,7 +140,7 @@ export default function Topbar() {
                             />
                         </Disclosure.Button>
                         <Disclosure.Panel className="mt-2 space-y-2">
-                            {[...products, ...callsToAction].map((item) => (
+                            {[...products].map((item) => (
                             <Disclosure.Button
                                 key={item.name}
                                 as="a"
@@ -191,18 +173,11 @@ export default function Topbar() {
                     Company
                     </a>
                 </div>
-                <div className="py-6">
-                    <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge"
-                    >
-                    Log in
-                    </a>
-                </div>
                 </div>
             </div>
             </Dialog.Panel>
         </Dialog>
+        <div className={borderStyle} />
     </header>
   )
 }
