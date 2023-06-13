@@ -2,7 +2,8 @@ import { useState } from "react";
 
 import Topbar from "@/components/global/topbar";
 
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
 
@@ -17,7 +18,7 @@ export default function Home() {
                 BGcolor="bg-cambridge"
             />
 
-            <div className="flex flex-col w-3/4 bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Welcome to my website!</h1>
                 </div>
@@ -25,7 +26,7 @@ export default function Home() {
             </div>
             
 
-            <div className="flex flex-col w-3/4 bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">About me</h1>
                 </div>
@@ -43,14 +44,14 @@ export default function Home() {
                 </p>
             </div>
 
-            <div className="flex flex-col w-3/4 bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Projects</h1>
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
             </div>
 
-            <div className="flex flex-col w-3/4 bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Skills & Technologies</h1>
                 </div>
@@ -58,12 +59,26 @@ export default function Home() {
             </div>
 
 
-            <div className="flex flex-col w-full bg-rblack mt-20 shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-full bg-rblack mt-20 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Socials</h1>
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
                 
+                <div className="flex flex-row justify-evenly text-7xl text-cambridge mb-10">
+
+                    <a href="https://www.linkedin.com/in/colinschuh" target="_blank">
+                        <FaLinkedin
+                        className="transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]"
+                        />
+                    </a>
+
+                    <a href="https://github.com/colins-uky" target="_blank">
+                        <FaGithubSquare 
+                            className="transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]"
+                        />
+                    </a>
+                </div>
             </div>
 
         </div>
