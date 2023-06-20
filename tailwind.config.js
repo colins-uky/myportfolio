@@ -18,6 +18,8 @@ module.exports = {
       'yellow': '#FFB100',
       'munsell': '#62929E',
       'cambridge': '#6BAB90',
+      'amaranth': '#AF1B3F',
+      'pink': '#FC6471',
       'rblack': '#222222',
       'dblack': '#181818',
       'red': '#FF0000',

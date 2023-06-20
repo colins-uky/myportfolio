@@ -5,6 +5,8 @@ import Particles from "@/components/global/particles";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
+import { faW, faTableCells, faChartSimple } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -55,6 +57,49 @@ export default function Home() {
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Projects</h1>
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
+
+                <div className="flex flex-row w-full pt-5 justify-evenly">
+
+
+                    <div className="flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_5px_rgba(255,177,0,0.8)]">
+                        <Link href="/projects/conways">
+                            <div className="flex border-8 border-yellow p-5 rounded-xl aspect-square justify-center w-40 h-40">
+                                <FontAwesomeIcon icon={faTableCells} size="6x" color="#FFB100" />
+                            </div>
+                            <div className="max-w-[160px] text-center">
+                                <h1 className="text-2xl font-bold mb-4 mt-2 text-yellow">Conway&apos;s Game of Life</h1>
+                            </div>
+                        </Link>
+                    </div>
+
+                    <div className="flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_5px_rgba(252,100,113,0.8)]">
+                        <Link href="/projects/wordle">
+                            <div className="flex border-8 border-pink p-5 rounded-xl aspect-square justify-center pt-7 w-40 h-40">
+                                <FontAwesomeIcon icon={faW} size="5x" color="#FC6471" />
+                            </div>
+                            <div className="max-w-[160px] text-center">
+                                <h1 className="text-2xl font-bold mb-4 mt-2 text-pink">Wordle Clone</h1>
+                            </div>
+                        </Link>
+                    </div>
+
+
+                    <div className="flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_5px_rgba(98,146,158,0.8)]">
+                        <Link href="/projects/sorting">
+                            <div className="flex border-8 border-munsell p-5 rounded-xl aspect-square justify-center pt-7 w-40 h-40">
+                                <FontAwesomeIcon icon={faChartSimple} size="5x" color="#62929E" />
+                            </div>
+                            <div className="max-w-[160px] text-center">
+                                <h1 className="text-2xl font-bold mb-4 mt-2 text-munsell">Visual Sorting</h1>
+                            </div>
+                        </Link>
+                    </div>
+
+                    
+                    
+
+
+                </div>
             </div>
 
             <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
@@ -62,6 +107,10 @@ export default function Home() {
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Skills & Technologies</h1>
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
+
+                <div className="flex flex-row bg-red p-5">
+
+                </div>
             </div>
 
 

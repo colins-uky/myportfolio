@@ -55,11 +55,11 @@ export default function Wordle({ initialWordle }: WordleProps) {
 
 
             <Topbar 
-                BGcolor="bg-cambridge"
+                BGcolor="bg-pink"
             />
 
             
-            <h1 className="text-cambridge sorting font-bold text-7xl mt-5 text-center [text-shadow:_2px_2px_5px_rgb(107_171_144_/_100%)]">
+            <h1 className="text-pink sorting font-bold text-7xl mt-5 text-center [text-shadow:_2px_2px_5px_rgb(252_100_113_/_100%)]">
                 {title}
             </h1>
 
@@ -74,7 +74,7 @@ export default function Wordle({ initialWordle }: WordleProps) {
 
             <div className="flex flex-row-reverse aspect-[30/4] w-[40vw] max-w-[400px] bg-rblack rounded-b-3xl mb-10 shadow-lg shadow-rblack pb-3 px-3 justify-between">
                 <Button
-                    className="bg-jet w-1/3 h-full rounded-xl text-cambridge text-md font-bold shadow-md hover:shadow-cambridge transition hover:scale-110"
+                    className="bg-jet w-1/3 h-full rounded-xl text-pink text-md font-bold shadow-md hover:shadow-pink transition hover:scale-110"
                     tabIndex={-1}
                     onClick={(e) => {
                         setWordle(getRandomWordle());
@@ -86,7 +86,7 @@ export default function Wordle({ initialWordle }: WordleProps) {
                 </Button>
 
                 <Button
-                    className="bg-jet w-1/3 h-full rounded-xl text-cambridge text-md font-bold shadow-md hover:shadow-cambridge transition hover:scale-110"
+                    className="bg-jet w-1/3 h-full rounded-xl text-pink text-md font-bold shadow-md hover:shadow-pink transition hover:scale-110"
                     tabIndex={-1}
                     onClick={(e) => {
                         setShowWordle(!showWordle);
