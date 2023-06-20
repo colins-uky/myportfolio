@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Topbar from "@/components/global/topbar";
+import Particles from "@/components/global/particles";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
@@ -13,15 +14,20 @@ export default function Home() {
 
 
     return (
-        <div className="flex flex-col bg-rblack items-center">
+        <>
+        
+        <div className="flex flex-col bg-transparent items-center">
+            
             <Topbar 
                 BGcolor="bg-cambridge"
             />
 
             <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
-                <div className="flex justify-center">
-                    <h1 className="text-4xl font-bold mb-4 text-cambridge">Welcome to my website!</h1>
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="text-5xl font-bold mb-4 text-cambridge">Colin Schuh</h1>
+                    <h2 className="text-3xl font-bold mb-4 text-cambridge"> Welcome to my website!</h2>
                 </div>
+                
                 <div className="w-full h-1 bg-cambridge" />
             </div>
             
@@ -59,13 +65,13 @@ export default function Home() {
             </div>
 
 
-            <div className="flex flex-col w-full bg-rblack mt-20 text-bright">
+            <div className="flex flex-col w-full bg-transparent mt-20 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Socials</h1>
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
                 
-                <div className="flex flex-row justify-evenly text-7xl text-cambridge mb-10">
+                <div className="flex flex-row justify-evenly text-7xl text-cambridge pb-10 pt-4">
 
                     <a href="https://www.linkedin.com/in/colinschuh" target="_blank">
                         <FaLinkedin
@@ -81,7 +87,11 @@ export default function Home() {
                 </div>
             </div>
 
+            
         </div>
+
+        <Particles />
+        </>
     );
 
 }   

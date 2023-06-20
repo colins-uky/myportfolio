@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import Head from "next/head";
 import Topbar from "@/components/global/topbar";
 import Board from "@/components/wordle/board";
+import Keyboard from "@/components/wordle/keyboard";
 
 import WordleList from "@/components/wordle/words.json"
 
@@ -96,7 +97,12 @@ export default function Wordle({ initialWordle }: WordleProps) {
                 </Button>
             </div>
 
-
+            <div>
+                <Keyboard 
+                    colors={null}
+                    squares={null}
+                />
+            </div>
 
         </div>
         </>
