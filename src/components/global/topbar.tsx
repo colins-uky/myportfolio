@@ -131,7 +131,7 @@ export default function Topbar({ BGcolor }:TopbarProps) {
                     <Disclosure as="div" className="-mx-3">
                     {({ open }) => (
                         <>
-                        <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-bright font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge">
+                        <Disclosure.Button className="flex w-full items-center mt-3 justify-between rounded-lg py-2 pl-3 pr-3.5 text-bright font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge">
                             Projects
                             <ChevronDownIcon
                             className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}

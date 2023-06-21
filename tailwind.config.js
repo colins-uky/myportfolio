@@ -7,10 +7,10 @@ module.exports = {
   ],
   theme: {
     
-      fontFamily : {
-        Lato: ['Lato', 'sans-serif'],
-        Bruno: ["'Bruno Ace SC'", 'cursive'],
-      },
+    fontFamily : {
+      Lato: ['Lato', 'sans-serif'],
+      Bruno: ["'Bruno Ace SC'", 'cursive'],
+    },
 
     colors: {
       'jet': '#343434',
@@ -31,9 +31,15 @@ module.exports = {
       'lgrey' : '#dddddd',
       'dgrey' : '#787c7e',
       'wordle-green' : '#6aaa64',
-      'wordle-yellow' : '#c9b458'
+      'wordle-yellow' : '#c9b458',
+      'react': '#61dafb',
 
     },
+    extend: {
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      }
+    }
   },
   plugins: [],
 }
