@@ -19,9 +19,7 @@ export default function Home() {
         
         <div className="flex flex-col bg-transparent items-center">
             
-            <Topbar 
-                BGcolor="bg-cambridge"
-            />
+            <Topbar />
 
             <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
                 <div className="flex flex-col justify-center items-center">
@@ -62,7 +60,7 @@ export default function Home() {
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
 
-                <div className="flex flex-row w-full pt-5 justify-evenly">
+                <div className="flex flex-row w-full pt-10 justify-evenly">
 
 
                     <div className="flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_5px_rgba(255,177,0,0.8)]">
@@ -137,8 +135,50 @@ export default function Home() {
 
                 </div>
 
+                <div className="flex flex-row p-5 mx-10">
+                    
+                    <div className="flex flex-col items-center grow px-10 pt-5 pb-0">
+                        <FaReact size="xl" className="text-react hover:animate-spin-slow hover:drop-shadow-[0_0_10px_rgba(97,218,251,0.8)]" />
+                        <h1 className="text-3xl font-bold mb-4 text-react"> ReactJS </h1>
+                    </div>
+
+                    <div className="flex flex-col items-center grow px-10 pt-5 pb-0">
+                        <FaJsSquare size="xl" className="text-[#fcdc00] hover:drop-shadow-[0_0_10px_rgba(252,220,0,0.8)] w-[100px] hover:scale-110 duration-100 ease-in-out transform"/>
+                        <h1 className="text-3xl font-bold mb-4 text-[#fcdc00]"> JavaScript </h1>
+                    </div>
+
+                    <div className="flex flex-col items-center grow px-10 pt-5 pb-0">
+                        <FaHtml5 size="xl" className="text-[#e96228] hover:drop-shadow-[0_0_10px_rgba(233,98,40,0.8)] hover:scale-110 duration-100 ease-in-out transform" />
+                        <h1 className="text-3xl font-bold mb-4 text-[#e96228]"> HTML </h1>
+                    </div>
+
+                    <div className="flex flex-col items-center grow px-10 pt-5 pb-0">
+                        <FaPython size="xl" className="text-[#346e9f] hover:drop-shadow-[0_0_10px_rgba(247,208,69,0.8)] hover:scale-110 duration-100 ease-in-out transform" />
+                        <h1 className="text-3xl font-bold mb-4 text-[#f7d045]"> Python </h1>
+                    </div>
+
+
+                </div>
+
                 
             </div>
+
+
+
+
+
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+                <div className="flex justify-center">
+                    <h1 className="text-4xl font-bold mb-4 text-cambridge">Resum&eacute;</h1>
+                </div>
+                <div className="w-full h-1 bg-cambridge" />
+
+                <div className="flex justify-center">
+                    
+                </div>
+            </div>
+
+
 
 
             <div className="flex flex-col w-full bg-transparent mt-20 text-bright">
@@ -147,7 +187,7 @@ export default function Home() {
                 </div>
                 <div className="w-full h-1 bg-cambridge" />
                 
-                <div className="flex flex-row justify-evenly text-7xl text-cambridge pb-10 pt-4">
+                <div className=" flex flex-row justify-evenly text-7xl text-cambridge pb-10 pt-4">
 
                     <a href="https://www.linkedin.com/in/colinschuh" target="_blank">
                         <FaLinkedin
@@ -162,8 +202,6 @@ export default function Home() {
                     </a>
                 </div>
             </div>
-
-            
         </div>
 
         <Particles />
