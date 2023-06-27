@@ -28,7 +28,7 @@ export default function Home() {
                     
                 </div>
 
-                <div className="w-full h-1 bg-cambridge mb-4" />
+                <div className="w-full rounded h-1 bg-cambridge mb-4" />
 
                 <div className="flex flex-col items-center">
                     <h2 className="text-3xl font-bold text-bright"> Welcome to my website!</h2>
@@ -42,7 +42,7 @@ export default function Home() {
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">About me</h1>
                 </div>
 
-                <div className="w-full h-1 bg-cambridge" />
+                <div className="w-full rounded h-1 bg-cambridge" />
                 
                 <p className="text-xl my-6">
                     I&apos;m a Senior Computer Science & Mathematics Student at the University of Kentucky, College of Engineering.
@@ -52,7 +52,9 @@ export default function Home() {
                 </p>
 
                 <div className="flex flex-col items-center mb-6">
-                    <h2 className="text-4xl font-bold text-cambridge mb-4"> Clubs</h2>
+                    <h2 className="text-4xl font-bold text-cambridge mb-3"> Clubs</h2>
+
+                    <div className="w-full rounded h-1 bg-cambridge mb-4" />
                     
                     <Clubs />
 
@@ -67,7 +69,7 @@ export default function Home() {
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Projects</h1>
                 </div>
-                <div className="w-full h-1 bg-cambridge" />
+                <div className="w-full rounded h-1 bg-cambridge" />
 
                 <Projects />
                 
@@ -77,7 +79,7 @@ export default function Home() {
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Skills & Technologies</h1>
                 </div>
-                <div className="w-full h-1 bg-cambridge" />
+                <div className="w-full rounded h-1 bg-cambridge" />
 
                 <SkillsAndTechnologies />
 
@@ -91,7 +93,7 @@ export default function Home() {
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Resum&eacute;</h1>
                 </div>
-                <div className="w-full h-1 bg-cambridge" />
+                <div className="w-full rounded h-1 bg-cambridge" />
 
                 <div className="flex justify-center">
                     
