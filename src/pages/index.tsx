@@ -1,19 +1,21 @@
-import { useState, CSSProperties } from "react";
+import { useRouter } from "next/router";
 
 import Topbar from "@/components/global/topbar";
 import Particles from "@/components/global/particles";
 import SkillsAndTechnologies from "@/components/global/skills";
 import Projects from "@/components/global/projects";
 import Clubs from "@/components/global/clubs/clubs";
+import ResumeViewer from "@/components/global/resume";
+
+import { Button } from "react-bootstrap";
 
 import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
-
 import Link from "next/link";
-import Image from "next/image";
+
 
 
 export default function Home() {
-
+    const router = useRouter();
 
     return (
         <>
@@ -34,6 +36,13 @@ export default function Home() {
                     <h2 className="text-3xl font-bold text-bright"> Welcome to my website!</h2>
                 </div>
                 
+                <div className="flex justify-center mt-4">
+                    <Link href='https://github.com/colins-uky/myportfolio' target="_blank" passHref className="flex flex-row hover:text-cambridge">
+                        <FaGithubSquare className="w-8 h-8"/>
+                        <h1 className="mt-1 ml-1 underline"> View full website code on GitHub</h1>
+                    </Link>
+                </div>
+
             </div>
             
 
@@ -93,10 +102,26 @@ export default function Home() {
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Resum&eacute;</h1>
                 </div>
-                <div className="w-full rounded h-1 bg-cambridge" />
+                <div className="w-full rounded h-1 bg-cambridge mb-4" />
 
-                <div className="flex justify-center">
-                    
+                <div className="flex justify-center h-min">
+                    <ResumeViewer 
+                        docScale={1.3}
+                    />
+                </div>
+
+                <div className="flex flex-row w-full justify-between my-4">
+                    <Link href="/documents/Schuh_Colin_Resume.pdf" target="_blank" passHref>
+                        <Button className="bg-button px-5 py-3 rounded-2xl hover:bg-cambridge hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]" variant="primary"
+                            >
+                            <h1 className="text-lg"> View in Browser </h1>
+                        </Button>
+                    </Link>
+
+                    <Button className="bg-button text-bright px-5 py-3 rounded-2xl hover:bg-cambridge hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]" variant="primary"
+                        href="/api/downloadResume">
+                        <h1 className="text-lg"> Download Resum&eacute; </h1>
+                    </Button>
                 </div>
             </div>
 
@@ -111,13 +136,13 @@ export default function Home() {
                 
                 <div className=" flex flex-row justify-evenly text-7xl text-cambridge pb-10 pt-4">
 
-                    <a href="https://www.linkedin.com/in/colinschuh" target="_blank">
+                    <a href="https://www.linkedin.com/in/colinschuh" target="_blank" rel="noopener noreferrer">
                         <FaLinkedin
                         className="transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]"
                         />
                     </a>
 
-                    <a href="https://github.com/colins-uky" target="_blank">
+                    <a href="https://github.com/colins-uky" target="_blank" rel="noopener noreferrer">
                         <FaGithubSquare 
                             className="transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]"
                         />

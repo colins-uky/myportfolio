@@ -44,7 +44,7 @@ export default function Topbar({ BGcolor }:TopbarProps) {
         <header className="bg-rblack w-full sticky top-0 z-50">
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
-                    <Link href="/" className="-m-1.5 p-1.5">
+                    <Link href="/" className="-m-1.5 p-1.5" passHref>
                         <span className="sr-only">Home</span>
                         <HomeIcon className='h-8 text-bright hover:text-cambridge' />
                     </Link>
@@ -99,9 +99,9 @@ export default function Topbar({ BGcolor }:TopbarProps) {
                     </Transition>
                 </Popover>
 
-                <a href="/resume" className="text-md font-semibold leading-6 text-bright hover:text-cambridge">
+                <Link href="/resume" className="text-md font-semibold leading-6 text-bright hover:text-cambridge">
                     Resum&eacute;
-                </a>
+                </Link>
                 </Popover.Group>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                 
@@ -116,7 +116,7 @@ export default function Topbar({ BGcolor }:TopbarProps) {
                 <div className="fixed inset-0 z-10" />
                 <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-rblack px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                 <div className="flex items-center justify-between">
-                    <Link href="/" className="-m-1.5 p-1.5">
+                    <Link href="/" className="-m-1.5 p-1.5" passHref>
                     <span className="sr-only">Home</span>
                     <HomeIcon className='h-8 text-bright hover:text-cambridge' />
                     </Link>
@@ -157,12 +157,12 @@ export default function Topbar({ BGcolor }:TopbarProps) {
                             </>
                         )}
                         </Disclosure>
-                        <a
+                        <Link
                         href="/resume"
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge"
                         >
                         Resum&eacute;
-                        </a>
+                        </Link>
                         <a
                         href="#"
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge"

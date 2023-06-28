@@ -34,6 +34,8 @@ module.exports = {
       'wordle-green' : '#6aaa64',
       'wordle-yellow' : '#c9b458',
       'react': '#61dafb',
+      'button': '#007bff',
+      'button-hover': '#005bff',
 
     },
     extend: {

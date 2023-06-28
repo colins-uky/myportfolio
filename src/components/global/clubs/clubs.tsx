@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-
+const clubNames = ['KORA', 'SMILE', 'SnowCats', 'Esports'];
 
 export default function Clubs() {
 
-    const clubNames = ['KORA', 'SMILE', 'SnowCats', 'Esports'];
     const [club, setClub] = useState<string>(clubNames[0]);
     const [interval, setIntervalState] = useState<number>(7000); // 7 second cycle
     const intervalRef = useRef<number>();
@@ -15,15 +14,17 @@ export default function Clubs() {
         setIntervalState(15000); // 15 seconds when user interacts
     };
 
-    const cycleClubs = () => {
-        setClub((prevClub) => {
-            const currentIndex = clubNames.indexOf(prevClub);
-            const nextIndex = (currentIndex + 1) % clubNames.length;
-            return clubNames[nextIndex];
-        })
-    }
+    
 
     useEffect(() => {
+        const cycleClubs = () => {
+            setClub((prevClub) => {
+                const currentIndex = clubNames.indexOf(prevClub);
+                const nextIndex = (currentIndex + 1) % clubNames.length;
+                return clubNames[nextIndex];
+            })
+        }
+
         if (intervalRef.current) {
             clearInterval(intervalRef.current);
         }
