@@ -3,12 +3,11 @@ import { SiTypescript } from "react-icons/si";
 import { TbBrandCpp } from "react-icons/tb";
 
 
-
+const iconSize = 100;
 
 export default function SkillsAndTechnologies() {
 
-    const iconSize = 100;
-
+    
 
     return (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 mx-10">
