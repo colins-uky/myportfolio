@@ -474,7 +474,7 @@ export default function Sort() {
 
 
 
-                <Form.Select className="bg-jet w-44 h-full rounded-2xl text-center text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                <Form.Select className="bg-jet w-24 lg:w-44 h-full rounded-2xl text-center text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                              onChange={handleChangeAlg}
                 >
                     <option value="Merge">Merge Sort</option>
@@ -486,8 +486,8 @@ export default function Sort() {
 
                 
 
-                <div className="flex flex-col text-munsell sort">
-                    <Form.Label className="mb-2 -mt-2 font-bold text-md">
+                <div className="flex flex-col text-munsell sort w-16 lg:w-32">
+                    <Form.Label className="mb-2 -mt-2 font-bold text-xs lg:text-lg">
                         Bars : {barCount}
                     </Form.Label>
                     <Form.Range
@@ -500,8 +500,8 @@ export default function Sort() {
                 </div>
 
 
-                <div className="flex flex-col text-munsell sort">
-                    <Form.Label className="mb-2 -mt-2 font-bold text-md">
+                <div className="flex flex-col text-munsell sort w-16 lg:w-40">
+                    <Form.Label className="mb-2 -mt-2 font-bold text-xs lg:text-lg">
                         Interval (ms): {interval}
                     </Form.Label>
                     <Form.Range
@@ -516,14 +516,14 @@ export default function Sort() {
 
 
                 <div className="flex flex-col text-munsell">
-                    <Form.Label className="font-bold text-lg">
+                    <Form.Label className="font-bold text-sm lg:text-lg">
                         Comparisons: {comparisonCounter}
                     </Form.Label>
                 </div>
 
 
                 <Button 
-                    className="bg-jet w-28 h-full rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    className="bg-jet w-24 lg:w-32 h-full rounded-2xl text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                     onClick={handleResetSort}
 
                 >
@@ -533,7 +533,7 @@ export default function Sort() {
 
 
                 <Button
-                    className="bg-jet w-32 h-full rounded-2xl text-munsell text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    className="bg-jet w-24 lg:w-32 h-full rounded-2xl text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                     onClick={handleStartSort}
                 >
                     Start/Stop

@@ -45,8 +45,8 @@ export default function Conways() {
 
 
 
-        <div className="flex h-[75vh] bg-jet justify-center items-center">
-            <div className="flex flex-col w-3/4 max-w-screen-lg h-3/4 bg-rblack rounded-3xl p-10 shadow-lg shadow-rblack">
+        <div className="flex bg-jet justify-center items-center">
+            <div className="flex flex-col w-3/4 max-w-screen-lg bg-rblack rounded-3xl p-10 mt-16 shadow-lg shadow-rblack">
                 <h1 className="w-full text-center text-3xl text-bright font-bold">Conway&apos;s Game of Life</h1>
 
                 <p className="text-bright text-lg font-serif indent-10 mt-10">
@@ -58,14 +58,14 @@ export default function Conways() {
                 </p>
 
                 <p className="text-bright text-lg font-serif indent-10 mt-10">
-                    The Game of Life is a famous example of the <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Halting_problem" target="_blank">Halting Problem</a>, which
+                    The Game of Life is a famous example of the <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Halting_problem" target="_blank" rel="noreferrer">Halting Problem</a>, which
                     states that a general solution that determines if a program will get stuck in a loop forever, or &quot;halt&quot; cannot exist. In this case, a general algorithm that can determine if the Game of Life will fizzle out (All cells dead)
                     or if the Game of Life will reach a stable configuration of cells, is impossible. Alonzo Church and Alan Turing both proved this separately in 1936 and in 1937 respectively. Church used lamba calculus for his proof while 
-                    Turing used his famous hypothetical machines, the <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Turing_machine" target="_blank">Turing Machine</a>.
+                    Turing used his famous hypothetical machines, the <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Turing_machine" target="_blank" rel="noreferrer">Turing Machine</a>.
                     
                 </p>
 
-                <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">Conway&apos;s Game of Life Wiki</a>
+                <a className="mt-5 text-yellow text-lg underline hover:text-cambridge" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank" rel="noreferrer">Conway&apos;s Game of Life Wiki</a>
             </div>
         </div>
         </>

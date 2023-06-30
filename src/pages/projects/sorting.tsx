@@ -14,7 +14,7 @@ export default function Sorting() {
 
         <>
         <Head>
-            <title>Conway&apos;s Game of Life</title>
+            <title>Visual Sorting</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href='favicon.svg' />
         </Head>
@@ -32,17 +32,11 @@ export default function Sorting() {
 
             <div className="flex w-3/4 max-w-4xl h-3/4 max-h-lg bg-rblack rounded-3xl mt-8 shadow-lg shadow-rblack p-5 pb-1">
 
-                <Sort 
-                    
-                />
+                <Sort />
 
             </div>
 
-
-
         </div>
-
-
         </>
     );
 }
