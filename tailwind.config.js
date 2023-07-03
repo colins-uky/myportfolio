@@ -39,7 +39,15 @@ module.exports = {
 
     },
     extend: {
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '30%, 90%': { transform: 'translateX(-10px)' },
+          '60%' : { transform: 'translateX(10px)' }
+        }
+      },
       animation: {
+        'shake': 'shake 0.5s ease-in-out',
         'spin-slow': 'spin 3s linear infinite',
       }
     }

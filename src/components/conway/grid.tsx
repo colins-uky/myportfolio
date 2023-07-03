@@ -232,6 +232,9 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
     return (
         <>
+        <div className="flex flex-col bg-rblack w-3/4 max-w-3xl aspect-square mt-10 rounded-t-3xl p-5 shadow-lg shadow-rblack"
+                onContextMenu={(e) => e.preventDefault()}
+        >
         <div
           style={{
             display: 'grid',
@@ -240,7 +243,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
             gap: '1px',
           }}
           onMouseLeave={handleMouseUp}
-          className="flex w-full h-full"
+          className="flex w-full aspect-square"
         >
           {cells.map((cell, index) => (
             <div
@@ -253,14 +256,15 @@ export default function Grid({ prefab_automaton }: GridProps) {
                 backgroundColor: cell.alive ? '#FFB100' : '#343434',
                 cursor: 'pointer',
               }}
+              className="aspect-square"
             ></div>
           ))}
         </div>
 
 
+        </div>
 
-
-        <div className="flex flex-row items-center justify-between bg-rblack rounded-b-lg pt-5 pb-2 pl-7 pr-7 h-15 w-full">
+        <div className="flex flex-row items-center justify-between bg-rblack rounded-b-3xl pb-2 pl-7 pr-7 h-15 w-3/4 max-w-3xl shadow-lg shadow-rblack">
 
             <div className="flex flex-col text-yellow conway">
                 <Form.Label className="mb-2 -mt-2 font-bold text-lg">

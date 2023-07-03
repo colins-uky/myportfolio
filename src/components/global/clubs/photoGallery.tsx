@@ -10,8 +10,8 @@ interface PhotoGalleryProps {
 
 
 export default function PhotoGallery({ imgArr, setInterval }: PhotoGalleryProps) {
-    const [isOpen, setIsOpen] = useState(false);
     const [activeImage, setActiveImage] = useState('');
+    const [isModalLoading, setIsModalLoading] = useState(true);
 
     // Modal variables
     const [show, setShow] = useState(false);
@@ -19,16 +19,21 @@ export default function PhotoGallery({ imgArr, setInterval }: PhotoGalleryProps)
     const handleClose = () =>{
         setShow(false);
         setInterval(15000);
+        setIsModalLoading(true);
     } 
-    const handleShow = () => setShow(true);
+
 
 
     const handleImageClick = (image: any) => {
         setActiveImage(image);
-        handleShow();
+        setShow(true);
         setInterval(300000);
     }
 
+    const handleImageLoad = () => {
+        setIsModalLoading(false);
+        console.log('Image Loaded');
+    }
 
     return (
         <>
@@ -45,8 +50,8 @@ export default function PhotoGallery({ imgArr, setInterval }: PhotoGalleryProps)
         </div>
 
 
-        <Modal isVisible={show} onClose={() => handleClose()}>
-            <Image src={activeImage} alt="Image preview" />
+        <Modal isVisible={show} onClose={() => handleClose()} isLoading={isModalLoading} >
+            <Image src={activeImage} alt="Image preview" onLoad={handleImageLoad}/>
         </Modal>
         </>
     );

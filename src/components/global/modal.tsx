@@ -7,10 +7,11 @@ interface ModalProps {
     isVisible: boolean;
     onClose: () => void;
     children: ReactNode;
+    isLoading?: boolean;
 }
 
 
-export default function Modal({ isVisible, onClose, children }: ModalProps) {
+export default function Modal({ isVisible, onClose, children, isLoading = false }: ModalProps) {
     if ( !isVisible ) return null;
 
 
@@ -21,16 +22,19 @@ export default function Modal({ isVisible, onClose, children }: ModalProps) {
     }
     return (
         <div className="fixed inset-0 bg-rblack bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-50"
-             onClick={handleClose}
-             id="wrapper"
+            onClick={handleClose}
+            id="wrapper"
         >
-            <div className="w-fit max-w-[800px] max-w flex flex-col">
+            <div className="w-fit max-w-[800px] max-w flex flex-col overflow-auto">
                 <button className="text-bright text-xl place-self-end"
                         onClick={() => onClose()}>
                     <FontAwesomeIcon icon={faXmark} className="w-8 h-8 hover:text-red"/>
                 </button>
-                <div className="bg-rblack p-2 rounded">
+                <div className="bg-rblack p-2 rounded modal-content">
+                    {isLoading && <p>Loading...</p>}
+                    
                     {children}
+                    
                 </div>
             </div>
         </div>

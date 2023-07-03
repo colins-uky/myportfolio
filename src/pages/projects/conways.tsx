@@ -22,7 +22,7 @@ export default function Conways() {
             <link rel="icon" href='favicon.svg' />
         </Head>
         
-        <div className="flex w-full h-screen bg-jet items-center flex-col">
+        <div className="flex w-full bg-jet items-center flex-col">
 
             <Topbar 
                 BGcolor="bg-yellow"
@@ -31,22 +31,16 @@ export default function Conways() {
 
             <h1 className="text-yellow text-7xl mt-10 conways text-center [text-shadow:_2px_2px_3px_rgb(255_255_255_/_80%)]"> Conway&apos;s Game of Life</h1>
 
-            <div className="flex flex-col bg-rblack h-3/4 max-h-3xl w-3/4 max-w-3xl mt-10 rounded-3xl p-5 shadow-lg shadow-rblack"
-                onContextMenu={(e) => e.preventDefault()}
-            >
-                <Grid 
-                    prefab_automaton={automaton}
-                />
-                
-            </div>
             
+            <Grid prefab_automaton={automaton} />
+ 
         </div>
 
 
 
 
-        <div className="flex bg-jet justify-center items-center">
-            <div className="flex flex-col w-3/4 max-w-screen-lg bg-rblack rounded-3xl p-10 mt-16 shadow-lg shadow-rblack">
+        <div className="flex bg-jet justify-center items-center pb-16">
+            <div className="flex flex-col w-3/4 max-w-screen-lg bg-rblack rounded-3xl p-10 mt-20 shadow-lg shadow-rblack">
                 <h1 className="w-full text-center text-3xl text-bright font-bold">Conway&apos;s Game of Life</h1>
 
                 <p className="text-bright text-lg font-serif indent-10 mt-10">

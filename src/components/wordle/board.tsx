@@ -1,4 +1,11 @@
-import React, { useState, useEffect, KeyboardEvent } from 'react';
+import React, { useState, useEffect } from 'react';
+import Button from "react-bootstrap/Button";
+import Keyboard from './keyboard';
+import PopUp from './popUp';
+
+
+
+
 
 interface SquareProps {
     letter: string;
@@ -8,8 +15,10 @@ interface SquareProps {
 }
 
 interface BoardProps {
-    wordle: string;
-    wordleSet: Set<string>;
+    initialWordle: string;
+    WordleList: string[];
+    WordleSet: Set<string>;
+    getRandomWordle: () => string;
 }
 
 // Helper function for calculateGuessColors() function
@@ -27,15 +36,21 @@ function countLetters(str: string) {
 }
 
 
-function Board({ wordle, wordleSet }: BoardProps) {
-    let upperWordle = wordle ? wordle.toUpperCase() : '';
-    const totalSquares = 30;
 
+const totalSquares = 30;
+
+function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardProps) {
+
+    const [squares, setSquares] = useState<string[]>(Array(totalSquares).fill(''));
+    const [colors, setColors] = useState<Array<string>>(Array(totalSquares).fill(null));
+
+    const [wordle, setWordle] = useState(initialWordle);
+
+
+    const [showWordle, setShowWordle] = useState(false);
 
     // Initialize states for square data
-    const [squares, setSquares] = useState<string[]>(Array(totalSquares).fill(''));
     const [flipState, setFlipState] = useState<Array<boolean>>(Array(totalSquares).fill(false));
-    const [colors, setColors] = useState<Array<string>>(Array(totalSquares).fill(null));
 
     // Keep track of current square & row
     const [currentSquare, setCurrentSquare] = useState<number>(0);
@@ -46,6 +61,13 @@ function Board({ wordle, wordleSet }: BoardProps) {
 
     const [animateRow, setAnimateRow] = useState<number | null>(null);
     const [blockInput, setBlockInput] = useState(false);
+
+    const [showPopUp, setShowPopUp] = useState(false);
+
+
+    let title = showWordle ? `Wordle: ${wordle}` : 'Wordle'
+    let upperWordle = wordle ? wordle.toUpperCase() : '';
+
 
 
     // SQUARE COMPONENT
@@ -62,7 +84,7 @@ function Board({ wordle, wordleSet }: BoardProps) {
 
         
         return (
-            <div className={`w-full h-full relative rounded-sm ${animation}`} style={{animation: animate, transformStyle: 'preserve-3d', animationFillMode: 'forwards'}}>
+            <div className={`w-full aspect-square relative rounded-sm ${animation}`} style={{animation: animate, transformStyle: 'preserve-3d', animationFillMode: 'forwards'}}>
                 <div className={`absolute w-full h-full flex items-center justify-center ${squareColors}`} style={{ backfaceVisibility: 'hidden' }}>
                     <h1 className="text-[2em] font-bold m-0">{letter}</h1>
                 </div>
@@ -74,10 +96,15 @@ function Board({ wordle, wordleSet }: BoardProps) {
     }
     // END SQUARE COMPONENT
 
-    function handleKeyDown(event: KeyboardEvent): void {
+    function handleKeyDown(event: React.KeyboardEvent | undefined, key?: string): void {
         if(currentSquare <= totalSquares) {
-            const keyPressed = event.key.toUpperCase();
-
+            let keyPressed = '';
+            if (key) {
+                keyPressed = key;
+            }
+            else if (event) {
+                keyPressed = event.key.toUpperCase();
+            }
 
             if (keyPressed === 'ENTER' && currentSquare === 5 * currentRow) {
                 setLastAction('enter');
@@ -113,8 +140,9 @@ function Board({ wordle, wordleSet }: BoardProps) {
 
         // Use a set to store words as .has() is O(1) where .includes() for arrays is O(n), 
         //                                  hash maps :-)                  in this case n=5757
-        if (!wordleSet.has(guess.toLowerCase())) {
+        if (!WordleSet.has(guess.toLowerCase())) {
             // Guess is NOT in wordle list
+            setShowPopUp(true);
             console.log("GUESS NOT IN WORDLE LIST");
             return;
         }
@@ -138,6 +166,7 @@ function Board({ wordle, wordleSet }: BoardProps) {
             setFlipState(flipState.map((flip, index) => index < currentSquare ? true : flip));
             setBlockInput(false);
         }, 2000);
+
     }
 
     function calculateGuessColors(guess: string): boolean {
@@ -206,10 +235,63 @@ function Board({ wordle, wordleSet }: BoardProps) {
       }, [wordle]);
 
     return (
-        <div className="grid grid-cols-5 w-full gap-1.5" style={{gridTemplateRows: "repeat(6, 1fr)"}}>
-            {squares.map((letter, index) => <Square key={index} letter={letter} isCurrent={index === currentSquare - 1} index={index} color={colors[index]}/>)}
+        <>
+        <h1 className="text-pink sorting font-bold text-3xl lg:text-5xl 2xl:text-7xl text-center mt-1 [text-shadow:_2px_2px_5px_rgb(252_100_113_/_100%)]">
+            {title}
+        </h1>
+        <div className={`flex flex-col ${showPopUp ? "animate-shake" : ""}`}>
+            <div className="flex w-[60vw] lg:w-[40vw] max-w-[400px] bg-rblack rounded-t-3xl mt-2 shadow-lg shadow-rblack p-4">
+
+                <div className="grid grid-cols-5 grow gap-1.5" style={{gridTemplateRows: "repeat(6, 1fr)"}}>
+                    {squares.map((letter, index) => <Square key={index} letter={letter} isCurrent={index === currentSquare - 1} index={index} color={colors[index]}/>)}
+                </div>
+
+            </div>
+
+
+            <div className="flex flex-row-reverse aspect-[30/4] w-[60vw] lg:w-[40vw] max-w-[400px] bg-rblack rounded-b-3xl mb-6 shadow-lg shadow-rblack pb-3 px-3 justify-between">
+                <Button
+                    className="bg-jet w-1/3 h-full rounded-xl text-pink text-xs lg:text-lg font-bold shadow-md hover:shadow-pink transition hover:scale-110"
+                    tabIndex={-1}
+                    onClick={(e) => {
+                        setWordle(getRandomWordle());
+                        setShowWordle(false);
+                        e.currentTarget.blur();
+                    }}
+                >
+                    New Game
+                </Button>
+
+                <Button
+                    className="bg-jet w-1/3 h-full rounded-xl text-pink text-xs lg:text-lg font-bold shadow-md hover:shadow-pink transition hover:scale-110"
+                    tabIndex={-1}
+                    onClick={(e) => {
+                        setShowWordle(!showWordle);
+                        e.currentTarget.blur();
+                    }}
+                >
+                    Reveal Word
+                </Button>
+            </div>
+
         </div>
+
+        <div>
+            <Keyboard 
+                colors={colors}
+                squares={squares}
+                handleKeyPress={handleKeyDown}
+            />
+        </div>
+
+        <PopUp
+            message='Not a valid word. Try again.'
+            visibility={showPopUp}
+            setVisibility={setShowPopUp}
+        />
+        </>
     );
 }
 
 export default Board;
+
