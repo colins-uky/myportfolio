@@ -3,7 +3,6 @@ import Particles from "@/components/global/particles";
 import SkillsAndTechnologies from "@/components/global/skills";
 import Projects from "@/components/global/projects";
 import Clubs from "@/components/global/clubs/clubs";
-import ResumeViewer from "@/components/global/resume";
 
 import { Button } from "react-bootstrap";
 
@@ -101,19 +100,19 @@ export default function Home() {
                 </div>
                 <div className="w-full rounded h-1 bg-cambridge mb-4" />
 
-                <div className="flex justify-center h-min">
-                    <ResumeViewer 
-                        docScale={1.3}
-                    />
-                </div>
-
-                <div className="flex flex-row w-full my-4 justify-end">
+                <div className="flex flex-row w-full my-4 justify-evenly">
                     <Link href="/documents/Schuh_Colin_Resume.pdf" target="_blank" passHref>
                         <Button className="bg-button px-5 py-3 rounded-2xl hover:bg-cambridge hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]" variant="primary"
                             >
                             <h1 className="text-lg"> View in Browser </h1>
                         </Button>
                     </Link>
+
+
+                    <Button className="bg-button text-bright px-5 py-3 rounded-2xl hover:bg-cambridge hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]" variant="primary"
+                        href="/api/downloadResume">
+                        <h1 className="text-lg"> Download Resum&eacute; </h1>
+                    </Button>
                 </div>
             </div>
 
