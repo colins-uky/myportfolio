@@ -41,7 +41,7 @@ export default function PhotoGallery({ imgArr, setInterval }: PhotoGalleryProps)
             {imgArr.map((image, index) => (
                 <div key={index} className="overflow-hidden flex items-center">
                     <div onClick={() => handleImageClick(image)} className="cursor-pointer">
-                        <Image src={image} alt={`Gallery image ${index + 1}`} width={500} height={300} objectFit="cover" />
+                        <Image src={image} alt={`Gallery image ${index + 1}`} width={500} height={300} />
                     </div>
                 </div>
             ))}
@@ -51,7 +51,7 @@ export default function PhotoGallery({ imgArr, setInterval }: PhotoGalleryProps)
 
 
         <Modal isVisible={show} onClose={() => handleClose()} isLoading={isModalLoading} >
-            <Image src={activeImage} alt="Image preview" onLoad={handleImageLoad}/>
+            <Image src={activeImage} alt="Image preview" onLoad={handleImageLoad} width={500} height={300}/>
         </Modal>
         </>
     );
