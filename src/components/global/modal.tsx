@@ -8,10 +8,11 @@ interface ModalProps {
     onClose: () => void;
     children: ReactNode;
     isLoading?: boolean;
+    noBlur?: boolean;
 }
 
 
-export default function Modal({ isVisible, onClose, children, isLoading = false }: ModalProps) {
+export default function Modal({ isVisible, onClose, children, isLoading = false, noBlur = false }: ModalProps) {
     if ( !isVisible ) return null;
 
 
@@ -21,7 +22,7 @@ export default function Modal({ isVisible, onClose, children, isLoading = false 
         if (target.id === 'wrapper') onClose();
     }
     return (
-        <div className="fixed inset-0 bg-rblack bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-50"
+        <div className={`fixed inset-0 bg-rblack bg-opacity-25 ${noBlur ? "" : "backdrop-blur-sm"} flex justify-center items-center z-50`}
             onClick={handleClose}
             id="wrapper"
         >

@@ -48,7 +48,6 @@ export default function Wordle({ initialWordle }: WordleProps) {
 
             <Board 
                 initialWordle={initialWordle}
-                WordleList={WordleList}
                 WordleSet={WordleSet}
                 getRandomWordle={getRandomWordle}
             />

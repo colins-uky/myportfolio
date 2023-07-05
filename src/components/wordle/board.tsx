@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Button from "react-bootstrap/Button";
 import Keyboard from './keyboard';
 import PopUp from './popUp';
+import Modal from '../global/modal';
 
 
 
@@ -16,7 +17,6 @@ interface SquareProps {
 
 interface BoardProps {
     initialWordle: string;
-    WordleList: string[];
     WordleSet: Set<string>;
     getRandomWordle: () => string;
 }
@@ -39,7 +39,7 @@ function countLetters(str: string) {
 
 const totalSquares = 30;
 
-function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardProps) {
+function Board({ initialWordle, WordleSet, getRandomWordle }: BoardProps) {
 
     const [squares, setSquares] = useState<string[]>(Array(totalSquares).fill(''));
     const [colors, setColors] = useState<Array<string>>(Array(totalSquares).fill(null));
@@ -64,11 +64,13 @@ function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardP
 
     const [showPopUp, setShowPopUp] = useState(false);
 
+    const [isGameWon, setIsGameWon] = useState(false);
+    const [isGameLost, setIsGameLost] = useState(false);
+
+    const [winningStreak, setWinningStreak] = useState(0);
+    const [upperWordle, setUpperWordle] = useState(wordle ? wordle.toUpperCase() : '');
 
     let title = showWordle ? `Wordle: ${wordle}` : 'Wordle'
-    let upperWordle = wordle ? wordle.toUpperCase() : '';
-
-
 
     // SQUARE COMPONENT
     function Square({ letter, isCurrent, index, color }: SquareProps) {
@@ -96,80 +98,9 @@ function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardP
     }
     // END SQUARE COMPONENT
 
-    function handleKeyDown(event: React.KeyboardEvent | undefined, key?: string): void {
-        if(currentSquare <= totalSquares) {
-            let keyPressed = '';
-            if (key) {
-                keyPressed = key;
-            }
-            else if (event) {
-                keyPressed = event.key.toUpperCase();
-            }
 
-            if (keyPressed === 'ENTER' && currentSquare === 5 * currentRow) {
-                setLastAction('enter');
-
-                // Send only the correct row to handleSubmitGuess
-                handleSubmitGuess(squares.slice(currentSquare - 5, currentSquare));
-                return;
-            }
-            
-            
-            if (/^[A-Z]$/.test(keyPressed) && currentSquare < 5 * currentRow && !blockInput) {
-                const newSquares = [...squares];
-                newSquares[currentSquare] = keyPressed;
-                setSquares(newSquares);
-                setCurrentSquare(currentSquare + 1);
-                setLastAction("typing");
-            }
-            else if (keyPressed === 'BACKSPACE' && currentSquare > 5 * (currentRow - 1)) {
-                const newSquares = [...squares];
-                newSquares[currentSquare - 1] = '';
-                setSquares(newSquares);
-                setCurrentSquare(currentSquare - 1);
-                setLastAction("backspacing");
-            }
-            
-            
-        }
-    };
-
-
-    function handleSubmitGuess(guessArr: string[]) {
-        const guess = guessArr.join('');
-
-        // Use a set to store words as .has() is O(1) where .includes() for arrays is O(n), 
-        //                                  hash maps :-)                  in this case n=5757
-        if (!WordleSet.has(guess.toLowerCase())) {
-            // Guess is NOT in wordle list
-            setShowPopUp(true);
-            console.log("GUESS NOT IN WORDLE LIST");
-            return;
-        }
-
-        // Guess IS in wordle list
-
-        // Block the input while the animation is playing
-        setBlockInput(true);
-        // Increase the row count only if valid guess
-        setCurrentRow(currentRow + 1);
-
-        const isGameWon = calculateGuessColors(guess);
-
-       
-
-
-
-        // Begin the animation, cancel animation after 2 seconds and allow input
-        setAnimateRow(currentRow);
-        setTimeout(() => {
-            setFlipState(flipState.map((flip, index) => index < currentSquare ? true : flip));
-            setBlockInput(false);
-        }, 2000);
-
-    }
-
-    function calculateGuessColors(guess: string): boolean {
+    // WORDLE GAME FUNCTIONS
+    const calculateGuessColors = useCallback((guess: string) => {
         const guessCounts = countLetters(guess);
         const wordleCounts = countLetters(upperWordle);
 
@@ -212,19 +143,101 @@ function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardP
 
         // Return boolean based on countCorrect
         return countCorrect == 5;
+    }, [colors, currentSquare, upperWordle]);
+
+    const handleSubmitGuess = useCallback((guessArr: string[]) => {
+        const guess = guessArr.join('');
+
+        // Use a set to store words as .has() is O(1) where .includes() for arrays is O(n), 
+        //                                  hash maps :-)                  in this case n=5757
+        if (!WordleSet.has(guess.toLowerCase())) {
+            // Guess is NOT in wordle list
+            setShowPopUp(true);
+            return;
+        }
+
+        // Guess IS in wordle list
+
+        // Block the input while the animation is playing
+        setBlockInput(true);
+        // Increase the row count only if valid guess
+        setCurrentRow(currentRow + 1);
+
+        const gameWon = calculateGuessColors(guess);
+
+
+
+        // Begin the animation, cancel animation after 2 seconds and allow input
+        setAnimateRow(currentRow);
+        setTimeout(() => {
+            setFlipState(flipState.map((flip, index) => index < currentSquare ? true : flip));
+            setBlockInput(false);
+            setIsGameWon(gameWon);
+            setIsGameLost(!isGameWon && currentRow === 6);
+        }, 2000);
+
+    }, [WordleSet, calculateGuessColors, currentRow, currentSquare, flipState, isGameWon]);
+
+
+    const handleKeyDown = useCallback((event: React.KeyboardEvent | undefined, key?: string): void => {
+        if(currentSquare <= totalSquares) {
+            let keyPressed = '';
+            if (key) {
+                keyPressed = key;
+            }
+            else if (event) {
+                keyPressed = event.key.toUpperCase();
+            }
+
+            if (keyPressed === 'ENTER' && currentSquare === 5 * currentRow) {
+                setLastAction('enter');
+
+                // Send only the correct row to handleSubmitGuess
+                handleSubmitGuess(squares.slice(currentSquare - 5, currentSquare));
+                return;
+            }
+            
+            
+            if (/^[A-Z]$/.test(keyPressed) && currentSquare < 5 * currentRow && !blockInput) {
+                const newSquares = [...squares];
+                newSquares[currentSquare] = keyPressed;
+                setSquares(newSquares);
+                setCurrentSquare(currentSquare + 1);
+                setLastAction("typing");
+            }
+            else if (keyPressed === 'BACKSPACE' && currentSquare > 5 * (currentRow - 1)) {
+                const newSquares = [...squares];
+                newSquares[currentSquare - 1] = '';
+                setSquares(newSquares);
+                setCurrentSquare(currentSquare - 1);
+                setLastAction("backspacing");
+            }
+            
+            
+        }
+    }, [currentSquare, squares, currentRow, blockInput, handleSubmitGuess]);
+    // END WORDLE GAME FUNCTIONS
+
+
+    const handleCloseWinWindow = () => {
+        setIsGameWon(false);
+        setWordle(getRandomWordle());
     }
 
+    const handleCloseLoseWindow = () => {
+        setIsGameLost(false);
+        setWordle(getRandomWordle());
+    }
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown as any);
         return () => window.removeEventListener('keydown', handleKeyDown as any);
         
-    }, [currentSquare, squares, currentRow, blockInput]);
-
+    }, [currentSquare, squares, currentRow, blockInput, handleKeyDown]);
 
     useEffect(() => {
         // Resets the game if the wordle changes
-        upperWordle = wordle.toUpperCase();
+        setUpperWordle(wordle.toUpperCase());
         setSquares(Array(totalSquares).fill(''));
         setCurrentSquare(0);
         setCurrentRow(1);
@@ -232,7 +245,19 @@ function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardP
         setAnimateRow(null);
         setFlipState(Array(totalSquares).fill(false));
         setColors(Array(totalSquares).fill(null));
-      }, [wordle]);
+        setShowWordle(false);
+    }, [wordle]);
+
+
+    useEffect(() => {
+        console.log(isGameLost);
+        if (isGameWon) {
+            setWinningStreak((prevWinStreak) => ++prevWinStreak)
+        }
+        else if (isGameLost) {
+            setWinningStreak(0);
+        }
+    }, [isGameLost, isGameWon])
 
     return (
         <>
@@ -255,7 +280,6 @@ function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardP
                     tabIndex={-1}
                     onClick={(e) => {
                         setWordle(getRandomWordle());
-                        setShowWordle(false);
                         e.currentTarget.blur();
                     }}
                 >
@@ -289,6 +313,27 @@ function Board({ initialWordle, WordleList, WordleSet, getRandomWordle }: BoardP
             visibility={showPopUp}
             setVisibility={setShowPopUp}
         />
+        
+
+        <Modal isVisible={isGameWon} onClose={handleCloseWinWindow} noBlur={true}>
+            <div className='flex flex-col py-4 px-10 mx-24 items-center'>
+                <h1 className='text-pink text-5xl font-bold pb-8'> Nice Job! </h1>
+
+                <h1 className='text-bright text-4xl font-bold pb-4'> The word was <span className='text-pink'>{wordle}</span>.</h1>
+
+                <p className='text-bright text-2xl font-bold align-start'>Winning streak: <span className='text-pink'>{winningStreak}</span>.</p>
+            </div>
+        </Modal>
+
+        <Modal isVisible={isGameLost} onClose={handleCloseLoseWindow} noBlur={true}>
+            <div className='flex flex-col py-4 px-10 mx-24 items-center'>
+                <h1 className='text-pink text-5xl font-bold pb-8'> Game Over! </h1>
+
+                <h1 className='text-bright text-4xl font-bold pb-4'> The word was <span className='text-pink'>{wordle}</span>.</h1>
+
+                <p className='text-bright text-2xl font-bold align-start'>Winning streak: <span className='text-pink'>{winningStreak}</span>.</p>
+            </div>
+        </Modal>
         </>
     );
 }

@@ -7,7 +7,7 @@ import { faW, faTableCells, faChartSimple, faBookBookmark } from "@fortawesome/f
 
 export default function Projects() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full pt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full pt-10">
             <div className="flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_5px_rgba(255,177,0,0.8)]">
                 <Link href="/projects/conways" passHref>
                     <div className="flex border-8 border-yellow p-5 rounded-xl aspect-square justify-center">
@@ -41,16 +41,6 @@ export default function Projects() {
                 </Link>
             </div>
 
-            <div className="flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-110 hover:drop-shadow-[0_0_5px_rgba(196,73,0,0.8)]">
-                <Link href="/projects/sportsbook" passHref>
-                    <div className="flex border-8 border-orange p-5 rounded-xl aspect-square justify-center">
-                        <FontAwesomeIcon icon={faBookBookmark} className="w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32" color="#C44900" />
-                    </div>
-                    <div className="max-w-[120px] lg:max-w-[184px] sm:max-w-[160px] text-center">
-                        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 mt-2 text-orange">Live Sports Book (WIP)</h1>
-                    </div>
-                </Link>
-            </div>
         </div>
     )
 }

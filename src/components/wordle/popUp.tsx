@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
-interface ToastProps {
+interface PopUpProps {
   message: string;
   visibility: boolean;
   setVisibility: (visibility: boolean) => void;
 }
 
-const PopUp: React.FC<ToastProps> = ({ message, visibility, setVisibility }) => {
+const PopUp: React.FC<PopUpProps> = ({ message, visibility, setVisibility }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,7 +17,7 @@ const PopUp: React.FC<ToastProps> = ({ message, visibility, setVisibility }) => 
 
   return (
     <div 
-      className={`fixed bottom-0 right-0 m-6 py-2 px-3 rounded text-white ${visibility ? "bg-green-500 transition-opacity duration-300 ease-in opacity-100" : "opacity-0"}`}
+    className={`fixed top-16 z-50 m-6 py-4 px-5 rounded bg-rblack border-2 border-pink rounded-xl text-white transition-opacity duration-300 ease-in-out ${visibility ? "bg-green-500 opacity-100" : "opacity-0"}`}
     >
       {message}
     </div>

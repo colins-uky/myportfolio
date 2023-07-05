@@ -379,13 +379,11 @@ export default function Sort() {
     useEffect(() => {
         let timerId: number | undefined;
         
-        console.log(startSort);
         if (startSort) {
             timerId = window.setInterval(() => {
 
                 const result = sortGen.next();
                 if (!result.done) {
-                    console.log(result);
                     setArray(result.value.array);
                     setActiveIndex(result.value.index);
 
@@ -444,7 +442,7 @@ export default function Sort() {
                 window.clearInterval(timerId);
             }
         };
-    }, [startScan, interval]);
+    }, [startScan, interval, scanGen]);
 
 
     return (
