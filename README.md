@@ -35,6 +35,6 @@ Creating this portfolio web application helped me learn many areas of the web de
 
 Feel free to reach out with any questions, or wish to discuss my work or potential opportunities!
 
-- Name
-- Email
-- LinkedIn
+- Colin Schuh
+- Email: colin.schuh@uky.edu
+- [LinkedIn](https://www.linkedin.com/in/colinschuh)

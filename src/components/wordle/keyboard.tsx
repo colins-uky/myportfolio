@@ -33,7 +33,7 @@ export default function Keyboard({ colors, squares, handleKeyPress}: KeyboardPro
     
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mt-10">
             {rows.map((row, rowIndex) => (
                 <div key={rowIndex} className="flex mb-2">
                     {row.map((letter) => {
@@ -56,7 +56,7 @@ export default function Keyboard({ colors, squares, handleKeyPress}: KeyboardPro
                         return (
                             <button
                                 key={letter}
-                                className={`mx-1 py-3 px-4 rounded text-xl font-bold ${color ? color : "bg-grey"}`}
+                                className={`mx-0.5 sm:mx-1 py-2 sm:py-3 px-2 sm:px-4 w-8 sm:w-12 rounded text-base sm:text-xl font-bold ${color ? color : "bg-grey"}`}
                                 onClick={() => handleButtonClick(letter)}
                             >
                                 {letter}
@@ -68,7 +68,7 @@ export default function Keyboard({ colors, squares, handleKeyPress}: KeyboardPro
 
             <div className="flex mb-2">
                 <button
-                    className="mx-1 py-3 px-4 rounded text-xl font-bold bg-grey"
+                    className="mx-0.5 sm:mx-1 py-2 sm:py-3 px-2 sm:px-4 rounded text-base sm:text-xl font-bold bg-grey"
                     onClick={() => handleButtonClick('ENTER')}
                 >
                     Enter
@@ -93,7 +93,7 @@ export default function Keyboard({ colors, squares, handleKeyPress}: KeyboardPro
                     return (
                         <button
                             key={letter}
-                            className={`mx-1 py-3 px-4 rounded text-xl font-bold ${color ? color : "bg-grey"}`}
+                            className={`mx-0.5 sm:mx-1 py-2 sm:py-3 px-2 sm:px-4 w-8 sm:w-12 rounded text-base sm:text-xl font-bold ${color ? color : "bg-grey"}`}
                             onClick={() => handleButtonClick(letter)}
                         >
                             {letter}
@@ -102,10 +102,10 @@ export default function Keyboard({ colors, squares, handleKeyPress}: KeyboardPro
                 })}
 
                 <button
-                    className="mx-1 py-3 px-4 rounded text-xl font-bold bg-grey"
+                    className="mx-0.5 sm:mx-1 py-2 sm:py-3 px-2 sm:px-4 w-10 sm:w-14 rounded text-base sm:text-xl font-bold bg-grey"
                     onClick={() => handleButtonClick('BACKSPACE')}
                 >
-                    <FaBackspace />
+                    <FaBackspace className="ml-1 sm:ml-0" />
                 </button>
             </div>
         </div>

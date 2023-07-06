@@ -78,7 +78,7 @@ function Board({ initialWordle, WordleSet, getRandomWordle }: BoardProps) {
         const animation = flipState[index] ? "" : (isCurrent && lastAction === "typing" ? "bounce" : "");
         const animate = flipState[index] ? "" : (row === animateRow ? `flip 0.5s ${index % 5 * 0.4}s forwards` : "");
 
-        const squareColors = flipState[index] ? (color ? `${color} text-white` : 'bg-jet text-white') : (letter ? "border-4 border-dgrey bg-lgrey" : "border-4 border-grey bg-lgrey");
+        const squareColors = flipState[index] ? (color ? `${color} text-white` : 'bg-jet text-white') : (letter ? "border-[3px] sm:border-4 border-dgrey bg-lgrey" : "border-[3px] sm:border-4 border-grey bg-lgrey");
 
         const backColors = color ? `${color} text-white` : "bg-jet text-white";
 
@@ -88,10 +88,10 @@ function Board({ initialWordle, WordleSet, getRandomWordle }: BoardProps) {
         return (
             <div className={`w-full aspect-square relative rounded-sm ${animation}`} style={{animation: animate, transformStyle: 'preserve-3d', animationFillMode: 'forwards'}}>
                 <div className={`absolute w-full h-full flex items-center justify-center ${squareColors}`} style={{ backfaceVisibility: 'hidden' }}>
-                    <h1 className="text-[2em] font-bold m-0">{letter}</h1>
+                    <h1 className="text-xl sm:text-3xl font-bold m-0">{letter}</h1>
                 </div>
                 <div className={`absolute w-full h-full flex items-center justify-center ${backColors}`} style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-                    <h1 className="text-[2em] font-bold m-0" style={{transform: 'rotateX(180deg) rotateY(180deg)'}}>{letter}</h1>
+                    <h1 className="text-xl sm:text-3xl font-bold m-0" style={{transform: 'rotateX(180deg) rotateY(180deg)'}}>{letter}</h1>
                 </div>
             </div>
         );
@@ -261,7 +261,7 @@ function Board({ initialWordle, WordleSet, getRandomWordle }: BoardProps) {
 
     return (
         <>
-        <h1 className="text-pink sorting font-bold text-3xl lg:text-5xl 2xl:text-7xl text-center mt-1 [text-shadow:_2px_2px_5px_rgb(252_100_113_/_100%)]">
+        <h1 className="text-pink font-bold text-4xl lg:text-5xl 2xl:text-7xl text-center my-2 sm:my-6 [text-shadow:_2px_2px_5px_rgb(252_100_113_/_100%)]">
             {title}
         </h1>
         <div className={`flex flex-col ${showPopUp ? "animate-shake" : ""}`}>
@@ -316,22 +316,22 @@ function Board({ initialWordle, WordleSet, getRandomWordle }: BoardProps) {
         
 
         <Modal isVisible={isGameWon} onClose={handleCloseWinWindow} noBlur={true}>
-            <div className='flex flex-col py-4 px-10 mx-24 items-center'>
-                <h1 className='text-pink text-5xl font-bold pb-8'> Nice Job! </h1>
+            <div className='flex flex-col py-4 px-10 mx-4 sm:mx-24 items-center'>
+                <h1 className='text-pink text-3xl sm:text-5xl font-bold pb-4 sm:pb-8'> Nice Job! </h1>
 
-                <h1 className='text-bright text-4xl font-bold pb-4'> The word was <span className='text-pink'>{wordle}</span>.</h1>
+                <h1 className='text-bright text-2xl sm:text-4xl pb-4 font-bold'> The word was <span className='text-pink'>{wordle}</span></h1>
 
-                <p className='text-bright text-2xl font-bold align-start'>Winning streak: <span className='text-pink'>{winningStreak}</span>.</p>
+                <p className='text-bright text-xl sm:text-2xl font-bold align-start'>Winning streak: <span className='text-pink'>{winningStreak}</span></p>
             </div>
         </Modal>
 
         <Modal isVisible={isGameLost} onClose={handleCloseLoseWindow} noBlur={true}>
-            <div className='flex flex-col py-4 px-10 mx-24 items-center'>
-                <h1 className='text-pink text-5xl font-bold pb-8'> Game Over! </h1>
+            <div className='flex flex-col py-4 px-10 mx-4 sm:mx-24 items-center'>
+                <h1 className='text-pink text-3xl sm:text-5xl font-bold pb-4 sm:pb-8'> Game Over! </h1>
 
-                <h1 className='text-bright text-4xl font-bold pb-4'> The word was <span className='text-pink'>{wordle}</span>.</h1>
+                <h1 className='text-bright text-2xl sm:text-4xl font-bold pb-4'> The word was <span className='text-pink'>{wordle}</span></h1>
 
-                <p className='text-bright text-2xl font-bold align-start'>Winning streak: <span className='text-pink'>{winningStreak}</span>.</p>
+                <p className='text-bright text-xl sm:text-2xl font-bold align-start'>Winning streak: <span className='text-pink'>{winningStreak}</span></p>
             </div>
         </Modal>
         </>

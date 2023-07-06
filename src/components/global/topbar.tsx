@@ -75,7 +75,7 @@ export default function Topbar({ BGcolor }:TopbarProps) {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                     >
-                    <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-2 ring-cambridge">
+                    <Popover.Panel className="absolute -left-8 top-full z-50 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-2 ring-cambridge">
                         <div className="p-4 bg-rblack">
                         {projects.map((item) => (
                             <div
@@ -163,18 +163,6 @@ export default function Topbar({ BGcolor }:TopbarProps) {
                         >
                         Resum&eacute;
                         </Link>
-                        <a
-                        href="#"
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge"
-                        >
-                        Marketplace
-                        </a>
-                        <a
-                        href="#"
-                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-bright hover:bg-jet hover:text-cambridge"
-                        >
-                        Company
-                        </a>
                     </div>
                     </div>
                 </div>

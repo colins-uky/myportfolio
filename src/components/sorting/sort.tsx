@@ -271,7 +271,7 @@ export default function Sort() {
     const [algorithm, setAlgorithm] = useState('Merge');
 
 
-   
+   const buttonTitle = startSort ? 'Stop' : 'Start';
 
 
 
@@ -448,7 +448,7 @@ export default function Sort() {
     return (
         <div className="flex flex-col h-full w-full">
         
-            <div className="flex flex-row items-end bg-jet h-[93%] w-full">
+            <div className="flex flex-row items-end bg-jet h-full w-full">
 
 
                 {array.map((value, index) => (
@@ -467,12 +467,12 @@ export default function Sort() {
 
             </div>
 
-            <div className="flex flex-row justify-evenly items-center bg-rblack h-[7%] pt-1">
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 pt-4">
 
 
 
 
-                <Form.Select className="bg-jet w-24 lg:w-44 h-full rounded-2xl text-center text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                <Form.Select className="bg-jet w-16 sm:w-32 h-12 rounded-2xl text-center text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                              onChange={handleChangeAlg}
                 >
                     <option value="Merge">Merge Sort</option>
@@ -484,8 +484,8 @@ export default function Sort() {
 
                 
 
-                <div className="flex flex-col text-munsell sort w-16 lg:w-32">
-                    <Form.Label className="mb-2 -mt-2 font-bold text-xs lg:text-lg">
+                <div className="flex flex-col text-munsell sort w-16 sm:w-36">
+                    <Form.Label className="mb-2 -mt-2 font-bold text-xs sm:text-lg">
                         Bars : {barCount}
                     </Form.Label>
                     <Form.Range
@@ -498,8 +498,8 @@ export default function Sort() {
                 </div>
 
 
-                <div className="flex flex-col text-munsell sort w-16 lg:w-40">
-                    <Form.Label className="mb-2 -mt-2 font-bold text-xs lg:text-lg">
+                <div className="flex flex-col text-munsell sort w-16 sm:w-36">
+                    <Form.Label className="mb-2 -mt-2 font-bold text-xs sm:text-lg">
                         Interval (ms): {interval}
                     </Form.Label>
                     <Form.Range
@@ -514,14 +514,14 @@ export default function Sort() {
 
 
                 <div className="flex flex-col text-munsell">
-                    <Form.Label className="font-bold text-sm lg:text-lg">
+                    <Form.Label className="font-bold text-sm sm:text-lg">
                         Comparisons: {comparisonCounter}
                     </Form.Label>
                 </div>
 
 
                 <Button 
-                    className="bg-jet w-24 lg:w-32 h-full rounded-2xl text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    className="bg-jet w-16 sm:w-32 h-12 rounded-2xl text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                     onClick={handleResetSort}
 
                 >
@@ -531,10 +531,10 @@ export default function Sort() {
 
 
                 <Button
-                    className="bg-jet w-24 lg:w-32 h-full rounded-2xl text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
+                    className="bg-jet w-16 sm:w-32 h-12 rounded-2xl text-munsell text-sm lg:text-xl font-bold shadow-md hover:shadow-munsell transition hover:scale-110"
                     onClick={handleStartSort}
                 >
-                    Start/Stop
+                    {buttonTitle}
                 </Button>
 
 

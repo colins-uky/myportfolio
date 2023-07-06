@@ -82,33 +82,33 @@ export default function Clubs() {
         <div className="flex flex-row grow w-full justify-evenly h-10">
             <div className={`flex w-full justify-center rounded-tl-xl cursor-pointer hover:text-cambridge transition ${club === 'KORA' ? 'bg-rblack text-cambridge' : ''}`}
                 onClick={() => handleChangeClub('KORA')}>
-                <h1 className="text-2xl font-bold"> KORA </h1>
+                <h1 className="text-base lg:text-2xl font-bold"> KORA </h1>
             </div>
 
             <div className="w-2 bg-bright" />
 
             <div className={`flex w-full justify-center cursor-pointer hover:text-cambridge transition ${club === 'SMILE' ? 'bg-rblack text-cambridge' : ''}`}
                 onClick={() => handleChangeClub('SMILE')}>
-                <h1 className="text-2xl font-bold"> SMILE </h1>
+                <h1 className="text-base lg:text-2xl font-bold"> SMILE </h1>
             </div>
 
             <div className="w-2 bg-bright" />
 
             <div className={`flex w-full justify-center cursor-pointer hover:text-cambridge transition ${club === 'SnowCats' ? 'bg-rblack text-cambridge' : ''}`}
                 onClick={() => handleChangeClub('SnowCats')}>
-                <h1 className="text-2xl font-bold"> SnowCats </h1>
+                <h1 className="text-base lg:text-2xl font-bold"> SnowCats </h1>
             </div>
 
             <div className="w-2 bg-bright" />
 
             <div className={`flex w-full justify-center rounded-tr-xl cursor-pointer hover:text-cambridge transition ${club === 'Esports' ? 'bg-rblack text-cambridge' : ''}`}
                 onClick={() => handleChangeClub('Esports')}>
-                <h1 className="text-2xl font-bold"> Esports </h1>
+                <h1 className="text-base lg:text-2xl font-bold"> Esports </h1>
             </div>
         </div>
 
 
-        <div className="flex flex-col h-full w-full min-h-[672px] bg-rblack p-6 pt-8 rounded-b-xl border-x-2 border-b-2">
+        <div className="flex flex-col h-full w-full min-h-[400px] md:min-h-[500px] xl:min-h-[675px] bg-rblack p-6 pt-8 rounded-b-xl border-x-2 border-b-2">
             {
                 club === 'KORA' && <PhotoGallery imgArr={koraImageArr} setInterval={setIntervalState} />
             }

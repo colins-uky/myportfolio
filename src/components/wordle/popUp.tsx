@@ -17,7 +17,7 @@ const PopUp: React.FC<PopUpProps> = ({ message, visibility, setVisibility }) => 
 
   return (
     <div 
-    className={`fixed top-16 z-50 m-6 py-4 px-5 rounded bg-rblack border-2 border-pink rounded-xl text-white transition-opacity duration-300 ease-in-out ${visibility ? "bg-green-500 opacity-100" : "opacity-0"}`}
+    className={`fixed top-16 z-25 unselectable m-6 py-4 px-5 rounded bg-rblack border-2 border-pink rounded-xl text-white transition-opacity duration-300 ease-in-out ${visibility ? "bg-green-500 opacity-100" : "opacity-0"}`}
     >
       {message}
     </div>

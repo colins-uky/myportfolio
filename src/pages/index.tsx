@@ -20,7 +20,7 @@ export default function Home() {
             
             <Topbar />
 
-            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-4 lg:p-10 text-bright">
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="text-5xl font-bold mb-4 text-cambridge">Colin Schuh</h1>
                     
@@ -42,7 +42,7 @@ export default function Home() {
             </div>
             
 
-            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-4 lg:p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">About me</h1>
                 </div>
@@ -70,7 +70,7 @@ export default function Home() {
                 </p>
             </div>
 
-            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-4 lg:p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Projects</h1>
                 </div>
@@ -80,7 +80,7 @@ export default function Home() {
                 
             </div>
 
-            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-4 lg:p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Skills & Technologies</h1>
                 </div>
@@ -94,7 +94,7 @@ export default function Home() {
 
 
 
-            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-10 text-bright">
+            <div className="flex flex-col w-3/4 max-w-5xl bg-jet mt-20 rounded-3xl shadow-lg shadow-jet p-4 lg:p-10 text-bright">
                 <div className="flex justify-center">
                     <h1 className="text-4xl font-bold mb-4 text-cambridge">Resum&eacute;</h1>
                 </div>
@@ -109,7 +109,7 @@ export default function Home() {
                     </Link>
 
 
-                    <Button className="bg-button text-bright px-5 py-3 rounded-2xl hover:bg-cambridge hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]" variant="primary"
+                    <Button className="bg-button text-bright ml-4 px-5 py-3 rounded-2xl hover:bg-cambridge hover:drop-shadow-[0_0_10px_rgba(107,171,144,0.8)]" variant="primary"
                         href="/api/downloadResume">
                         <h1 className="text-lg"> Download Resum&eacute; </h1>
                     </Button>

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect, useRef } from "react";
+import { ChangeEvent, useState, useEffect, useRef, useCallback } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -27,7 +27,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
     const [cols, setCols] = useState(25);
 
 
-
+    const buttonTitle = conway ? 'Stop' : 'Start';
 
     // Initialize 1D array of cell objects with row, column, and alive state
     // Initialize all cells to dead
@@ -103,7 +103,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
         
     };
 
-    function resetCells() {
+    const resetCells = useCallback(() => {
         setCells(() => {
             const initialCells: Cell[] = [];
 
@@ -117,46 +117,9 @@ export default function Grid({ prefab_automaton }: GridProps) {
         });
         setConwayCounter(0);
         setConway(false);
-    }
+    }, [rows, cols]);
 
-    // Logic for the rules of John Horton Conways game of life
-    /* 
-      1.  Any live cell with two or three live neighbours survives.
-      2.  Any dead cell with three live neighbours becomes a live cell.
-      3.  All other live cells die in the next generation. Similarly, all other dead cells stay dead.
-
-    */
-    function Conways_Game_Of_Life(currentCells: Cell[]):Cell[] {
-
-        let newCells = currentCells.map((cell) => {
-
-            const aliveNeighbors = countAliveNeighbors(cell.row, cell.col, currentCells);
-
-            let newAliveStatus = cell.alive;
-
-            if (cell.alive) {
-                // 1.  Any live cell with two or three live neighbours survives.
-                newAliveStatus = aliveNeighbors === 2 || aliveNeighbors === 3;
-            }
-            else {
-                // 2.  Any dead cell with three live neighbours becomes a live cell.
-                newAliveStatus = aliveNeighbors === 3;
-            }
-
-            // 3.  All other live cells die in the next generation. 
-            //     Similarly, all other dead cells stay dead.
-            //     ( If none of the conditions above are satisfied 
-            //     then alive status will not have changed)
-
-            return { ...cell, alive: newAliveStatus };
-
-        });
-
-        return newCells;
-    }
-
-
-    function countAliveNeighbors(row: number, col: number, cells: Cell[]): number {
+    const countAliveNeighbors = useCallback((row: number, col: number, cells: Cell[]): number => {
 
         let aliveNeighbors = 0;
 
@@ -186,14 +149,53 @@ export default function Grid({ prefab_automaton }: GridProps) {
         });
 
         return aliveNeighbors;
-    }
+    }, [rows, cols]);
+
+    // Logic for the rules of John Horton Conways game of life
+    /* 
+      1.  Any live cell with two or three live neighbours survives.
+      2.  Any dead cell with three live neighbours becomes a live cell.
+      3.  All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+
+    */
+    const Conways_Game_Of_Life = useCallback((currentCells: Cell[]):Cell[] => {
+
+        let newCells = currentCells.map((cell) => {
+
+            const aliveNeighbors = countAliveNeighbors(cell.row, cell.col, currentCells);
+
+            let newAliveStatus = cell.alive;
+
+            if (cell.alive) {
+                // 1.  Any live cell with two or three live neighbours survives.
+                newAliveStatus = aliveNeighbors === 2 || aliveNeighbors === 3;
+            }
+            else {
+                // 2.  Any dead cell with three live neighbours becomes a live cell.
+                newAliveStatus = aliveNeighbors === 3;
+            }
+
+            // 3.  All other live cells die in the next generation. 
+            //     Similarly, all other dead cells stay dead.
+            //     ( If none of the conditions above are satisfied 
+            //     then alive status will not have changed)
+
+            return { ...cell, alive: newAliveStatus };
+
+        });
+
+        return newCells;
+    }, [countAliveNeighbors])
+
+
+    
 
 
     // Listens for changes in row and column state vars
     // For Grid size slider
     useEffect(() => {
         resetCells();
-    }, [rows, cols]);
+    }, [rows, cols, resetCells]);
 
 
     // Listens for changes to conway boolean or interval number
@@ -220,7 +222,7 @@ export default function Grid({ prefab_automaton }: GridProps) {
                 window.clearInterval(timerId);
             }
         };
-    }, [conway, interval]);
+    }, [conway, interval, Conways_Game_Of_Life]);
 
 
 
@@ -267,10 +269,11 @@ export default function Grid({ prefab_automaton }: GridProps) {
         <div className="flex flex-row items-center justify-between bg-rblack rounded-b-3xl pb-2 pl-7 pr-7 h-15 w-3/4 max-w-3xl shadow-lg shadow-rblack">
 
             <div className="flex flex-col text-yellow conway">
-                <Form.Label className="mb-2 -mt-2 font-bold text-lg">
+                <Form.Label className="mb-2 -mt-2 font-bold text-sm sm:text-lg">
                     Grid Size: {cols}
                 </Form.Label>
                 <Form.Range
+                    className="w-12 sm:w-24"
                     min={10}
                     max={45}
                     value={cols}
@@ -281,10 +284,11 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
 
             <div className="flex flex-col text-yellow conway">
-                <Form.Label className="mb-2 -mt-2 font-bold text-lg">
+                <Form.Label className="mb-2 -mt-2 font-bold text-sm sm:text-lg">
                     Interval (ms): {interval}
                 </Form.Label>
                 <Form.Range
+                    className="w-12 sm:w-24"
                     min={100}
                     max={2000}
                     value={interval}
@@ -293,14 +297,14 @@ export default function Grid({ prefab_automaton }: GridProps) {
             </div>
 
             <div className="flex flex-col text-yellow">
-                <Form.Label className="font-bold text-lg">
+                <Form.Label className="font-bold text-sm sm:text-lg">
                     Count: {conwayCounter}
                 </Form.Label>
             </div>
 
 
             <Button 
-                className="bg-jet w-32 h-12 rounded-2xl text-yellow text-xl font-bold hover:shadow-md hover:shadow-yellow transition hover:scale-110"
+                className="bg-jet w-16 sm:w-32 h-12 rounded-xl text-yellow text-sm sm:text-xl font-bold hover:shadow-md hover:shadow-yellow transition hover:scale-110"
                 onClick={handleClearCells}
 
             >
@@ -310,10 +314,10 @@ export default function Grid({ prefab_automaton }: GridProps) {
 
 
             <Button
-                className="bg-jet w-32 h-12 rounded-2xl text-yellow text-xl font-bold hover:shadow-md hover:shadow-yellow transition hover:scale-110"
+                className="bg-jet w-16 sm:w-32 h-12 rounded-xl text-yellow text-sm sm:text-xl font-bold hover:shadow-md hover:shadow-yellow transition hover:scale-110"
                 onClick={handleStartConway}
             >
-                Start/Stop
+                {buttonTitle}
             </Button>
         </div>
         </>

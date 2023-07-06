@@ -109,6 +109,12 @@ body {
   width: auto;
 }
 
+.unselectable {
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
 @keyframes bounce {
     50% {
         transform: scale(1.1);

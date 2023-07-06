@@ -29,7 +29,7 @@ export default function Conways() {
             />
 
 
-            <h1 className="text-yellow text-7xl mt-10 conways text-center [text-shadow:_2px_2px_3px_rgb(255_255_255_/_80%)]"> Conway&apos;s Game of Life</h1>
+            <h1 className="text-yellow text-5xl sm:text-7xl mt-10 mx-5 font-bold conways text-center [text-shadow:_2px_2px_3px_rgb(255_177_0_/_80%)]"> Conway&apos;s Game of Life</h1>
 
             
             <Grid prefab_automaton={automaton} />
@@ -40,7 +40,7 @@ export default function Conways() {
 
 
         <div className="flex bg-jet justify-center items-center pb-16">
-            <div className="flex flex-col w-3/4 max-w-screen-lg bg-rblack rounded-3xl p-10 mt-20 shadow-lg shadow-rblack">
+            <div className="flex flex-col w-3/4 max-w-screen-lg bg-rblack rounded-3xl p-5 sm:p-10 mt-20 shadow-lg shadow-rblack">
                 <h1 className="w-full text-center text-3xl text-bright font-bold">Conway&apos;s Game of Life</h1>
 
                 <p className="text-bright text-lg font-serif indent-10 mt-10">
