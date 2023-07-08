@@ -3,7 +3,7 @@
 Welcome to my portfolio website's GitHub repository! This website is a dynamic display of my work in the field of web development, including a few projects I've created. I've developed this site using React and NextJS. Feel free to explore the codebase and the live site itself!
 
 
-Live demo available here via Vercel: 
+Live demo available here via Vercel: (https://myportfolio-ebon-ten.vercel.app/)
 
 
 ## Features
