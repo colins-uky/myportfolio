@@ -173,10 +173,10 @@ function Board({ initialWordle, WordleSet, getRandomWordle }: BoardProps) {
             setFlipState(flipState.map((flip, index) => index < currentSquare ? true : flip));
             setBlockInput(false);
             setIsGameWon(gameWon);
-            setIsGameLost(!isGameWon && currentRow === 6);
+            setIsGameLost(!gameWon && currentRow === 6);
         }, 2000);
 
-    }, [WordleSet, calculateGuessColors, currentRow, currentSquare, flipState, isGameWon]);
+    }, [WordleSet, calculateGuessColors, currentRow, currentSquare, flipState]);
 
 
     const handleKeyDown = useCallback((event: React.KeyboardEvent | undefined, key?: string): void => {
